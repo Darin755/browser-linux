@@ -1,0 +1,38 @@
+<!doctype html>
+<head>
+<link rel="stylesheet" href="theme.css">
+<script src="v86/libv86.js"></script>
+</head>
+<body>
+<script>
+"use strict";
+
+window.onload = function()
+{
+    var emulator = window.emulator = new V86Starter({
+    	  wasm_path: "v86/v86.wasm",
+        memory_size: 512 * 1024 * 1024,
+        vga_memory_size: 32 * 1024 * 1024,
+        network_relay_url: "wss://relay.widgetry.org/",
+        screen_container: document.getElementById("screen_container"),
+        bios: {
+            url: "bios/seabios.bin",
+        },
+        vga_bios: {
+            url: "bios/vgabios.bin",
+        },
+        cdrom: {
+            url: "tinycore/core.iso",
+        },
+        autostart: true,
+        
+    });
+}
+</script>
+
+<!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
+<div id="screen_container" style="display: block;">
+    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+    <canvas style="display: none"></canvas>
+</div>
+</body>
