@@ -5,4 +5,4 @@ https://www.slitaz.org/
 
 ## LIVE DEMO:  
 
-https://darin755.github.io/tiny-browser-linux/
+https://darin755.github.io/browser-linux/
