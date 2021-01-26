@@ -32,7 +32,10 @@ window.onload = function()
 <!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
 <div id="screen_container" style="display: block;">
     <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
-    <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
+    <canvas id="vga" style="display: none"></canvas>
 </div>
-
+<script type="text/javascript" >
+document.getElementById("vga").requestPointerLock = canvas.requestPointerLock ||
+                            canvas.mozRequestPointerLock;
+</script>
 </body>
