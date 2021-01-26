@@ -1,7 +1,7 @@
 # browser linux
 
 ## It runs slitaz linux in your browser
-https://www.slitaz.org/en/
+https://www.slitaz.org/
 
 ## LIVE DEMO:  
 
