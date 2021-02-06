@@ -8,3 +8,7 @@ https://github.com/copy/v86
 ## LIVE DEMO:  
 
 https://darin755.github.io/browser-linux/
+
+## License
+
+see LICENSE
