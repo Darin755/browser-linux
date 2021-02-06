@@ -1,33 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="theme.css">
 <script src="v86/libv86.js"></script>
 </head>
 <body>
-<script>
+<script src="script.js"></script>
 
-window.onload = function()
-{
-    var emulator = window.emulator = new V86Starter({
-    	  wasm_path: "v86/v86.wasm",
-        memory_size: 512 * 1024 * 1024,
-        vga_memory_size: 32 * 1024 * 1024,
-        network_relay_url: "wss://relay.widgetry.org/",
-        screen_container: document.getElementById("screen_container"),
-        bios: {
-            url: "bios/seabios.bin",
-        },
-        vga_bios: {
-            url: "bios/vgabios.bin",
-        },
-        cdrom: {
-            url: "slitaz/slitaz-rolling.iso",
-        },
-        autostart: true,
-        
-    });
-}
-</script>
+<button id="toggle" onclick="toggleToolbox()">show toolbox</button>
+
+<div id="toolbox_div" class="toolbox">
+<button id="fullscreen" onclick="document.documentElement.requestFullscreen()">fullscreen</button>
+<button onclick="save()">save</button>
+<button onclick="restore()">restore</button>
+<button onclick="saveToFile()">save to file</button>
+<label>restore from file:</label>
+<input id="restore_file" type="file">
+<button id="pause_button" onclick="startStop()">pause</button>
+<p id="save_time">not saved</p>
+<p>terminal:</p>
+<textarea id="term"></textarea>
+</div>
+
 
 <!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
 <div id="screen_container" style="display: block;">

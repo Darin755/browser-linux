@@ -1,4 +1,13 @@
 body {
 background-color: black;
-
+color: white;
 }
+
+.toolbox {
+  border: 2px outset white;
+  background-color: black;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
