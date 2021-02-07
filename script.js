@@ -22,7 +22,7 @@ window.onload = function()
     });
     
    document.getElementById("toolbox_div").style.display = "none"; 
-   resume();
+   //resume();
    
     
 }
@@ -46,7 +46,7 @@ function saveToFile() {
       }
 
       var a = document.createElement("a");
-      a.download = "v86state.bin";
+      a.download = "browser-linux.bin";
       a.href = window.URL.createObjectURL(new Blob([new_state]));
       a.dataset.downloadurl = "application/octet-stream:" + a.download + ":" + a.href;
       a.click();
@@ -98,9 +98,9 @@ function save() {
 				state = new_state;
 			}
 		}
-var enc = new TextDecoder("utf-8");
+//var enc = new TextDecoder("utf-8");
 		state = new_state;
-		localStorage.state = enc.decode(state);
+	//	localStorage.state = enc.decode(state);
 		document.getElementById("save_time").innerHTML = getTimestamp();
 	});
 	
@@ -114,10 +114,10 @@ function getTimestamp() {
 var d = new Date();
 return "saved at: "+d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 }
-
+/**
 function resume() {
 	var enc = new TextEncoder();
 	emulator.restore_state(enc.encode(localStorage.state));
 }
-
+**/
 
