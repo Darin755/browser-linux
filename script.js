@@ -24,7 +24,28 @@ window.onload = function()
    document.getElementById("toolbox_div").style.display = "none"; 
    //resume();
    
-    
+document.getElementById("restore_file").onchange = function()
+    {
+        if(this.files.length)
+        {
+            var filereader = new FileReader();
+            emulator.stop();
+
+            filereader.onload = function(e)
+            {
+                emulator.restore_state(e.target.result);
+                emulator.run();
+            };
+
+            filereader.readAsArrayBuffer(this.files[0]);
+
+            this.value = "";
+        }
+
+        this.blur();
+        document.getElementById("save_time").innerHTML = "restored at "+getTimestamp();
+    };
+
 }
 
 
@@ -50,74 +71,55 @@ function saveToFile() {
       a.href = window.URL.createObjectURL(new Blob([new_state]));
       a.dataset.downloadurl = "application/octet-stream:" + a.download + ":" + a.href;
       a.click();
+      document.getElementById("save_time").innerHTML = "state saved at "+getTimestamp();
 	});
 }
 
 
-    document.getElementById("restore_file").onchange = function()
-    {
-        if(this.files.length)
-        {
-            var filereader = new FileReader();
-            emulator.stop();
 
-            filereader.onload = function(e)
-            {
-                emulator.restore_state(e.target.result);
-                emulator.run();
-            };
-
-            filereader.readAsArrayBuffer(this.files[0]);
-
-            this.value = "";
-        }
-
-        this.blur();
-    };
     
 function startStop() {
   if (emulator.is_running() == true) {
     emulator.stop();
     document.getElementById("pause_button").innerHTML = "start";
+    document.getElementById("save_time").innerHTML = "paused at "+getTimestamp();
   } else {
     emulator.run();
     document.getElementById("pause_button").innerHTML = "stop";
+    document.getElementById("save_time").innerHTML = "resumed at "+getTimestamp();
   }
 }
 
+function saveRestore() {
+	if(document.getElementById("save_restore").innerHTML == "restore") {
+		restore();
+		document.getElementById("save_restore").innerHTML = "save";
+	} else {
+		save();
+		document.getElementById("save_restore").innerHTML = "restore";
+	}
+}
 
 var state;
-var s = true;
 function save() {
 	emulator.save_state(function(error, new_state){
 		if(error){
-			if(error.name != "QuotaExceededError") {
-				throw error;
-			} else {
-				document.getElementById("save_time").innerHTML = "not enough space";
-				state = new_state;
-			}
+			Console.log(error);
 		}
-//var enc = new TextDecoder("utf-8");
 		state = new_state;
-	//	localStorage.state = enc.decode(state);
-		document.getElementById("save_time").innerHTML = getTimestamp();
+		document.getElementById("save_time").innerHTML = "temporary saved at "+getTimestamp();
 	});
 	
 }
 
 function restore() {
 	emulator.restore_state(state);
+	document.getElementById("save_time").innerHTML = "restored from temporary save at "+getTimestamp();
 }
 
 function getTimestamp() {
 var d = new Date();
-return "saved at: "+d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+return d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 }
-/**
-function resume() {
-	var enc = new TextEncoder();
-	emulator.restore_state(enc.encode(localStorage.state));
-}
-**/
+
 

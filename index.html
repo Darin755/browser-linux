@@ -19,17 +19,19 @@ color: white;
 <body>
 <script src="script.js"></script>
 
+
+
 <button id="toggle" onclick="toggleToolbox()">show toolbox</button>
 
 <div id="toolbox_div" class="toolbox">
-<button id="fullscreen" onclick="document.documentElement.requestFullscreen()">fullscreen</button>
-<button onclick="save()">save</button>
-<button onclick="restore()">restore</button>
+
+<button id="save_restore" onclick="saveRestore()">save</button>
 <button onclick="saveToFile()">save to file</button>
-<label>restore from file:</label>
-<input id="restore_file" type="file">
+Restore from file: <input id="restore_file" type="file">
+<hr>
+<button id="fullscreen" onclick="document.documentElement.requestFullscreen()">fullscreen</button>
 <button id="pause_button" onclick="startStop()">pause</button>
-<p id="save_time">not saved</p>
+<p id="save_time"></p>
 <p>terminal:</p>
 <textarea id="term"></textarea>
 </div>
