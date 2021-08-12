@@ -32,3 +32,7 @@
 
  - is under the MIT License
  - see LICENSE
+ 
+ ## ToDo
+  - Switch to a debian based distro 
+  
