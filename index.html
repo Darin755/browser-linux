@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<title>Browser Linux</title>
+<style type="text/css">
+body {
+background-color: black;
+color: white;
+}
+
+.toolbox {
+  border: 1px outset white;
+  background-color: black;
+  width: 300px;
+}
+</style>
+<script src="v86/libv86.js"></script>
+</head>
+
+
+<body>
+<h4>Welcome to Browser Linux</h4>
+<script src="script.js"></script>
+
+
+
+
+<!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
+<div id="screen_container" style="display: block;">
+    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+    <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
+</div>
+<h4>It's Linux, in a Browser</h4>
+<button id="toggle" onclick="toggleToolbox()">show toolbox</button>
+<div id="toolbox_div" class="toolbox">
+<button id="save_restore" onclick="saveRestore()">save</button>
+<button onclick="saveToFile()">save to file</button>
+<hr>
+Restore from file: <input id="restore_file" type="file">
+<hr>
+<button id="fullscreen" onclick="fullscreen()">fullscreen</button>
+<button id="pause_button" onclick="startStop()">pause</button>
+<p id="save_time"></p>
+</div>
+</body>
