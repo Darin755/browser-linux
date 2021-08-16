@@ -13,12 +13,9 @@ window.onload = function()
             url: "bios/vgabios.bin",
         },
         cdrom: {
-          url: "filesystems/slitaz-4.0-base.iso",
+          url: "filesystems/alpine-virt-3.14.1-x86.iso",
         },
-        filesystem:{
-          basefs: "filesystems/fs.json",
-          baseurl: "filesystems/shared/"
-        },
+        filesystem:{}, //new blank 9p
         autostart: true,
         preserve_mac_from_state_image: true
     });
