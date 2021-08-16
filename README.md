@@ -4,9 +4,9 @@
 
 ### Intrigued yet? Here's some more information:
 
- - browser linux runs Slitaz linux in your browser
+ - browser linux runs Alpine linux in your browser
 
-   - https://www.slitaz.org
+   - https://alpinelinux.org/
 
  - It is based on v86
 
