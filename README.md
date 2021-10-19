@@ -4,9 +4,9 @@
 
 ### Intrigued yet? Here's some more information:
 
- - browser linux runs Alpine linux in your browser
+ - browser linux runs Slitaz linux in your browser
 
-   - https://alpinelinux.org/
+   - https://www.slitaz.org/
 
  - It is based on v86
 
@@ -17,7 +17,7 @@
  - Make sure to close any open tabs as it may cause the browser to crash
  - When you open Browser-linux the emulator will start immediately
  - Hit enter for all of the boot prompts. The default settings should be satisfactory
- - Get a cup of coffee while you wait a eternity for it to boot.
+ - Get a cup of coffee while you wait a eternity for it to boot. (2-5m)
  - Have fun
 
 ### How to use the ToolBox
@@ -30,9 +30,6 @@
 
 ## License
 
- - is under the MIT License
+ - browser-linux under the MIT License
  - see LICENSE
- 
- ## ToDo
-  - Switch to a debian based distro 
-  
+ - there are different Licenses for slitaz and v86

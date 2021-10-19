@@ -13,7 +13,7 @@ window.onload = function()
             url: "bios/vgabios.bin",
         },
         cdrom: {
-          url: "filesystems/alpine-virt-3.14.1-x86.iso",
+          url: "iso/slitaz-base.iso",
         },
         filesystem:{}, //new blank 9p
         autostart: true,
