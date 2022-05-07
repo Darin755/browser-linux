@@ -5,7 +5,7 @@ window.onload = function()
         memory_size: 512 * 1024 * 1024,
         vga_memory_size: 32 * 1024 * 1024,
         network_relay_url: "wss://relay.widgetry.org/",
-        //screen_container: document.getElementById("screen_container"),
+        screen_container: document.getElementById("screen_container"),
 	serial_container_xtermjs: document.getElementById("terminal"),
         bios: {
             url: "lib/bios/seabios.bin",
@@ -86,6 +86,18 @@ function toggleToolbox() {
     document.getElementById("toggle").innerHTML = "show toolbox"
   }
 }
+
+function toggleScreen() {
+  var t = document.getElementById("screen_container");
+  if (t.style.display === "none") {
+    t.style.display = "block";
+    document.getElementById("screenButton").innerHTML = "hide screen";
+  } else {
+    t.style.display = "none";
+    document.getElementById("screenButton").innerHTML = "show screen"
+  }
+}
+
 
 function saveToFile() {
 	emulator.save_state(function(error, new_state) {

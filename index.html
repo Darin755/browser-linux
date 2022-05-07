@@ -25,7 +25,7 @@ color: white;
 
 <!-- A minimal structure for the Screen. Not used -->
 
-<div id="screen_container" style="display: block;">
+<div id="screen_container" style="display: none;">
     <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
     <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
 </div>
@@ -41,6 +41,7 @@ color: white;
 <div id="toolbox_div" class="toolbox">
 <button id="save_restore" onclick="saveRestore()">save</button>
 <button onclick="saveToFile()">save to file</button>
+<button id="screenButton" onClick="toggleScreen()"> show screen </button>
 <hr>
 Restore from file: <input id="restore_file" type="file">
 <hr>
