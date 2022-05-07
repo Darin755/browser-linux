@@ -16,4 +16,6 @@ ed
 lynx
 sudo
 
-You can get network access by running udhcpc as root. Browser-linux uses copy's proxy which is slow and bandwidth limited. https does not work.
+You can get network access by running udhcpc as root.
+Browser-linux uses copy's proxy which is slow and bandwidth limited and https does not work.
+
