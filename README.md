@@ -6,7 +6,7 @@
 
  - browser linux runs a custom Buildroot
 
-   - See 
+   - See https://github.com/Darin755/browser-buildroot
 
  - It uses the v86 emulator library 
 
