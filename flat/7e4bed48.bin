@@ -14,6 +14,7 @@ mg (emacs)
 mc
 ed
 lynx
+htop
 sudo
 
 You can get network access by running udhcpc as root.
