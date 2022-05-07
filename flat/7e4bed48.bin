@@ -1,0 +1,19 @@
+Welcome to Browser Linux!
+
+This is a custom buildroot running inside the v86 emulator. It has been tweaked to be as fast as possible and has the following packages installed:
+
+busybox utilities
+ascii_invaders
+sl
+lua
+bc
+pfetch
+vim 
+nano
+mg (emacs)
+mc
+ed
+lynx
+sudo
+
+You can get network access by running udhcpc as root. Browser-linux uses copy's proxy which is slow and bandwidth limited. https does not work.

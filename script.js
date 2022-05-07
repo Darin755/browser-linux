@@ -1,28 +1,56 @@
 window.onload = function()
 {
     var emulator = window.emulator = new V86Starter({
-    	  wasm_path: "v86/v86.wasm",
+    	wasm_path: "lib/v86/v86.wasm",
         memory_size: 512 * 1024 * 1024,
         vga_memory_size: 32 * 1024 * 1024,
         network_relay_url: "wss://relay.widgetry.org/",
-        screen_container: document.getElementById("screen_container"),
+        //screen_container: document.getElementById("screen_container"),
+	serial_container_xtermjs: document.getElementById("terminal"),
         bios: {
-            url: "bios/seabios.bin",
+            url: "lib/bios/seabios.bin",
         },
         vga_bios: {
-            url: "bios/vgabios.bin",
+            url: "lib/bios/vgabios.bin",
         },
-        cdrom: {
-          url: "iso/slitaz-base.iso",
+
+        filesystem:{
+          basefs: "contents.json",
+          baseurl: "flat/",
         },
-        filesystem:{}, //new blank 9p
+     	cdrom: {
+     	  url: "rootfs.iso",
+     	},
+
         autostart: true,
-        preserve_mac_from_state_image: true
+        preserve_mac_from_state_image: true,
+        disable_keyboard: true
     });
 
    document.getElementById("toolbox_div").style.display = "none";
-   //resume();
+   
+   //wait for boot
+   var term_div = document.getElementById("terminal");
+   var waiting_text = document.getElementById("waiting_text");
+   
+   //term_div.style.display = "none";
+   waiting_text.style.display = "block";
+   var data = "";
+   
+    emulator.add_listener("serial0-output-char", function(char)
+    {
+        if(char !== "\r")
+        {
+            data += char;
+        }
 
+        if(data.endsWith("$ "))
+        {
+            console.log("Boot successful");
+            term_div.style.display = "block";
+   	    waiting_text.style.display = "none";
+        }
+    });
 document.getElementById("restore_file").onchange = function()
     {
         if(this.files.length)

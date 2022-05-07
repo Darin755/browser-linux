@@ -13,7 +13,9 @@ color: white;
   width: 300px;
 }
 </style>
-<script src="v86/libv86.js"></script>
+<link rel="stylesheet" href="lib/xtermjs/xterm.css">
+<script src="lib/v86/libv86.js"></script>
+<script src="lib/xtermjs/xterm.js"></script>
 </head>
 
 
@@ -21,15 +23,20 @@ color: white;
 <h4>Welcome to Browser Linux</h4>
 <script src="script.js"></script>
 
+<!-- A minimal structure for the Screen. Not used -->
 
-
-
-<!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
 <div id="screen_container" style="display: block;">
     <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
     <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
 </div>
+
+<p id="waiting_text">
+ Waiting for boot to complete, please wait . . . <br>
+</p>
+<div id="terminal"></div>
+
 <h4>It's Linux, in a Browser</h4>
+
 <img id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
 <div id="toolbox_div" class="toolbox">
 <button id="save_restore" onclick="saveRestore()">save</button>
@@ -40,5 +47,6 @@ Restore from file: <input id="restore_file" type="file">
 <button id="fullscreen" onclick="fullscreen()">fullscreen</button>
 <button id="pause_button" onclick="startStop()">pause</button>
 <p id="save_time"></p>
+
 </div>
 </body>

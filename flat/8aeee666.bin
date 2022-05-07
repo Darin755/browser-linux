@@ -1,0 +1,2 @@
+#!/bin/ash
+export PF_ASCII="linux"

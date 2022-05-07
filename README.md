@@ -4,21 +4,15 @@
 
 ### Intrigued yet? Here's some more information:
 
- - browser linux runs Slitaz linux in your browser
+ - browser linux runs a custom Buildroot
 
-   - https://www.slitaz.org/
+   - See 
 
- - It is based on v86
+ - It uses the v86 emulator library 
 
    - https://github.com/copy/v86
 
-## How to use
 
- - Make sure to close any open tabs as it may cause the browser to crash
- - When you open Browser-linux the emulator will start immediately
- - Hit enter for all of the boot prompts. The default settings should be satisfactory
- - Get a cup of coffee while you wait a eternity for it to boot. (2-5m)
- - Have fun
 
 ### How to use the ToolBox
 
@@ -30,6 +24,6 @@
 
 ## License
 
- - browser-linux under the MIT License
+ - browser-linux itself is under GPLv2 License
  - see LICENSE
- - there are different Licenses for slitaz and v86
+ 
