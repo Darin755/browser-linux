@@ -55,6 +55,9 @@ window.onload = function()
    }).catch(function(err) {
    	console.log("error with web storage: "+err);
    	window.persist = false;
+   	document.getElementById("save").disabled = true;
+   	document.getElementById("autosave_toggle").disabled = true;
+   	document.getElementById("clear_save").disabled = true;
    });
 
 emulator.add_listener("serial0-output-char", function(char)
