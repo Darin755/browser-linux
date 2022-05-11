@@ -41,11 +41,10 @@ window.onload = function()
    window.persist = false; //persist is off until browser support is verified
    window.autosave_lock = false; //prevent race conditions
    localforage.getItem("snapshot").then(function(value) {
-   	console.log("enabling web storage persist");
-   	window.persist = true;
+   	//disabled becuase of bugs
+   	//console.log("enabling web storage persist");
+   	//window.persist = true;
    	if(value != null) {
-   		document.getElementById("save_restore").innerHTML = "restore to previous point";
-   		//test
    		localforage.getItem("snapshot").then(function(value) {
 			state = value;
 			emulator.restore_state(state);
@@ -57,24 +56,8 @@ window.onload = function()
    	console.log("error with web storage: "+err);
    	window.persist = false;
    });
-//autosave
-function startAutosave() {
-	if(!window.autosave_lock) {
-		window.autosave_lock = true;
-		emulator.save_state(function(error, new_state){
-			if(error){
-				console.log(error);
-			}
-		localforage.setItem("snapshot", new_state).then(function () {
-			window.autosave_lock = false;
-			console.log("saved");
-		});
-		document.getElementById("save_time").innerHTML = "autosaved at "+getTimestamp();
-		});
-	}
-};
 
-    emulator.add_listener("serial0-output-char", function(char)
+emulator.add_listener("serial0-output-char", function(char)
     {
         if(char !== "\r")
         {
@@ -86,7 +69,9 @@ function startAutosave() {
             console.log("Boot successful");
            // term_div.style.display = "block";
    	    waiting_text.style.display = "none";
-   	    startAutosave(); //start autosave
+   	    if(window.persist == true) {
+   	    	startAutosave(true); //start autosave
+   	    }
         }
     });
 document.getElementById("restore_file").onchange = function()
@@ -194,7 +179,7 @@ function save() {
 
 function restore() {
 	emulator.restore_state(state); 
-	document.getElementById("save_time").innerHTML = "restored from temp at "+getTimestamp();
+	document.getElementById("save_time").innerHTML = "restored from temporary at "+getTimestamp();
 }
 
 function getTimestamp() {
@@ -205,3 +190,49 @@ return d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+
 function fullscreen() {
 	document.getElementById("screen_container").requestFullscreen();
 }
+
+//autosave
+function startAutosave(auto) {
+	if(!window.autosave_lock) {
+		window.autosave_lock = true;
+		emulator.save_state(function(error, new_state){
+			if(error){
+				console.log(error);
+			}
+		localforage.setItem("snapshot", new_state).then(function () {
+			window.autosave_lock = false;
+			console.log("saved");
+		});
+		
+		if(auto) {
+			document.getElementById("save_time").innerHTML = "autosaved at "+getTimestamp();
+		} else {
+			document.getElementById("save_time").innerHTML = "saved at "+getTimestamp();
+		}
+		});
+	}
+}
+
+
+function delete_data() {
+	if(window.confirm("You are about to delete saved data. Are you sure you want to continue? THIS CAN NOT BE UNDONE!!!")){
+		window.autosave_lock = true;
+		localforage.setItem("snapshot", null).then(function () {
+			console.log("deleted");
+			window.location.reload();//reload the page
+		});
+	}
+}
+
+function toggle_autosave() {
+	var b = document.getElementById("autosave_toggle")
+	if(b.innerHTML == "disable autosave") {
+		b.innerHTML = "enable autosave";
+		window.persist = false;
+	} else {
+		b.innerHTML = "disable autosave";
+		window.persist = true;
+	}
+}
+
+
