@@ -37,6 +37,43 @@ window.onload = function()
    waiting_text.style.display = "block";
    var data = "";
    
+   //check if previous instance
+   window.persist = false; //persist is off until browser support is verified
+   window.autosave_lock = false; //prevent race conditions
+   localforage.getItem("snapshot").then(function(value) {
+   	console.log("enabling web storage persist");
+   	window.persist = true;
+   	if(value != null) {
+   		document.getElementById("save_restore").innerHTML = "restore to previous point";
+   		//test
+   		localforage.getItem("snapshot").then(function(value) {
+			state = value;
+			emulator.restore_state(state);
+			document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
+		});
+		document.getElementById("waiting_text").innerHTML = "Please Press Enter";
+   	}
+   }).catch(function(err) {
+   	console.log("error with web storage: "+err);
+   	window.persist = false;
+   });
+//autosave
+function startAutosave() {
+	if(!window.autosave_lock) {
+		window.autosave_lock = true;
+		emulator.save_state(function(error, new_state){
+			if(error){
+				console.log(error);
+			}
+		localforage.setItem("snapshot", new_state).then(function () {
+			window.autosave_lock = false;
+			console.log("saved");
+		});
+		document.getElementById("save_time").innerHTML = "autosaved at "+getTimestamp();
+		});
+	}
+};
+
     emulator.add_listener("serial0-output-char", function(char)
     {
         if(char !== "\r")
@@ -49,6 +86,7 @@ window.onload = function()
             console.log("Boot successful");
            // term_div.style.display = "block";
    	    waiting_text.style.display = "none";
+   	    startAutosave(); //start autosave
         }
     });
 document.getElementById("restore_file").onchange = function()
@@ -146,17 +184,17 @@ var state;
 function save() {
 	emulator.save_state(function(error, new_state){
 		if(error){
-			Console.log(error);
+			console.log(error);
 		}
 		state = new_state;
-		document.getElementById("save_time").innerHTML = "temporary saved at "+getTimestamp();
+		document.getElementById("save_time").innerHTML = "saved to temporary at "+getTimestamp();
 	});
 
 }
 
 function restore() {
-	emulator.restore_state(state);
-	document.getElementById("save_time").innerHTML = "restored from temporary save at "+getTimestamp();
+	emulator.restore_state(state); 
+	document.getElementById("save_time").innerHTML = "restored from temp at "+getTimestamp();
 }
 
 function getTimestamp() {
