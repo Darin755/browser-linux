@@ -47,7 +47,7 @@ window.onload = function()
         if(data.endsWith("$ "))
         {
             console.log("Boot successful");
-            term_div.style.display = "block";
+           // term_div.style.display = "block";
    	    waiting_text.style.display = "none";
         }
     });
@@ -71,6 +71,9 @@ document.getElementById("restore_file").onchange = function()
 
         this.blur();
         document.getElementById("save_time").innerHTML = "restored at "+getTimestamp();
+        //a helpful hint
+        document.getElementById("waiting_text").innerHTML = "Press enter to resume . . .";
+        waiting_text.style.display = "block";
     };
 
 }
