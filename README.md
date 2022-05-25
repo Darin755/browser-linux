@@ -2,7 +2,7 @@
 
 ## [LIVE DEMO](https://darin755.github.io/browser-linux/)
 
-<img src="screednshot.png">
+<img src="screenshot.png">
 
 ### About
 
