@@ -18,6 +18,9 @@
 
    - xtermjs [link](https://github.com/xtermjs/xterm.js)
 
+## How to save
+ - open the toolbox (the icon at the bottom) and press save now
+
 ## License
 
  - browser-linux itself is under GPLv2 License
