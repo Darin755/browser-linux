@@ -2,6 +2,8 @@
 
 ## [LIVE DEMO](https://darin755.github.io/browser-linux/)
 
+<img src="screednshot.png">
+
 ### About
 
  - browser linux is a project to get a linux command line in the browser
