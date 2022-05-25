@@ -16,4 +16,5 @@ ed
 lynx
 htop
 sudo
-
+ash (default shell)
+bash
