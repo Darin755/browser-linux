@@ -28,6 +28,7 @@ window.onload = function()
     });
 
    document.getElementById("toolbox_div").style.display = "none";
+   emulator.serial0_send("\n");
    //wait for boot
    var term_div = document.getElementById("terminal");
    var waiting_text = document.getElementById("waiting_text");
