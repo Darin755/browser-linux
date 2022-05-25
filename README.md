@@ -10,7 +10,7 @@
 
    - See https://github.com/Darin755/browser-buildroot
 
- - It uses the following libraries librarys
+ - It uses the following libraries
 
    - v86 [link](https://github.com/copy/v86)
 
