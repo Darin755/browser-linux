@@ -13,7 +13,6 @@ window.onload = function()
         vga_bios: {
             url: "lib/bios/vgabios.bin",
         },
-
         filesystem:{
           basefs: "contents.json",
           baseurl: "flat/",
@@ -46,7 +45,7 @@ window.onload = function()
    	if(value != null) {
 			state = value;
 			emulator.restore_state(state);
-			emulator.serial0_send("\n");
+			emulator.serial0_send("$HOME/.profile\n");//input after restore
 			document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
    	}
    }).catch(function(err) {
