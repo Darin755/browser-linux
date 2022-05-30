@@ -14,11 +14,11 @@
 
  - It uses the following libraries
 
-   - v86 [link](https://github.com/copy/v86)
+   - v86 [link](https://github.com/copy/v86) [LICENSE](https://github.com/Darin755/browser-linux/raw/master/lib/v86/LICENSE)
 
-   - localforge [link](https://github.com/localForage/localForage)
+   - localforge [link](https://github.com/localForage/localForage) [LICENSE](https://github.com/Darin755/browser-linux/raw/master/lib/localForage/LICENSE)
 
-   - xtermjs [link](https://github.com/xtermjs/xterm.js)
+   - xtermjs [link](https://github.com/xtermjs/xterm.js) [LICENSE](https://github.com/Darin755/browser-linux/raw/master/lib/xtermjs/LICENSE)
 
 ## How to save
 
