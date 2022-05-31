@@ -12,7 +12,7 @@ window.onload = function()
         document.getElementById("screen_container").style.display = "block";
         document.getElementById("screenButton").innerHTML = "hide screen";
     }
-console.log("using "window.params.get("iso")+" as iso");
+console.log("using "+window.params.get("iso")+" as iso");
     var emulator = window.emulator = new V86Starter({
     	wasm_path: "lib/v86/v86.wasm",
         memory_size: 512 * 1024 * 1024,
