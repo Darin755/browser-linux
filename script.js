@@ -1,18 +1,18 @@
 window.onload = function()
 {
     //parse url
-    url = window.location.search.substring(1);
-    var params = new URLSearchParams(url);
+    var url = window.location.search.substring(1);
+    window.params = new URLSearchParams(url);
     //iso
-    if(!(params.has("iso"))) {
-    	params.set("iso","rootfs.iso");
+    if(!(window.params.has("iso"))) {
+    	window.params.set("iso","rootfs.iso");
     }
     //screen
-    if(params.has("screen") && (params.get("screen") == "true")) {
+    if(window.params.has("screen") && (window.params.get("screen") == "true")) {
         document.getElementById("screen_container").style.display = "block";
         document.getElementById("screenButton").innerHTML = "hide screen";
     }
-console.log(params.iso);
+console.log("using "window.params.get("iso")+" as iso");
     var emulator = window.emulator = new V86Starter({
     	wasm_path: "lib/v86/v86.wasm",
         memory_size: 512 * 1024 * 1024,
@@ -31,7 +31,7 @@ console.log(params.iso);
           baseurl: "flat/",
         },
      	cdrom: {
-     	  url: params.get("iso"),
+     	  url: window.params.get("iso"),
      	},
 
         autostart: true,
@@ -51,7 +51,7 @@ console.log(params.iso);
    //check if previous instance
    window.persist = false; //persist is off until browser support is verified
    window.autosave_lock = false; //prevent race conditions
-   localforage.getItem("snapshot-"+params.get("iso")).then(function(value) {
+   localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) {
    	//disabled becuase of bugs
    	//console.log("enabling web storage persist");
    	//window.persist = true;
@@ -211,7 +211,7 @@ function startAutosave(auto) {
 			if(error){
 				console.log(error);
 			}
-		localforage.setItem("snapshot-"+params.get("iso"), new_state).then(function () {
+		localforage.setItem("snapshot-"+window.params.get("iso"), new_state).then(function () {
 			window.autosave_lock = false;
 			console.log("saved");
 		});
@@ -229,7 +229,7 @@ function startAutosave(auto) {
 function delete_data() {
 	if(window.confirm("You are about to delete saved data. Are you sure you want to continue? THIS CAN NOT BE UNDONE!!!")){
 		window.autosave_lock = true;
-		localforage.setItem("snapshot-"+params.get("iso"), null).then(function () {
+		localforage.setItem("snapshot-"+window.params.get("iso"), null).then(function () {
 			console.log("deleted");
 			window.location.reload();//reload the page
 		});
