@@ -6,15 +6,12 @@ busybox utilities
 ascii_invaders
 sl
 lua
-bc
 pfetch (recommended)
 neofetch (slow)
 vim 
 nano
 mg (emacs)
 mc
-ed
-lynx
 htop
 sudo
 ash (default shell)
