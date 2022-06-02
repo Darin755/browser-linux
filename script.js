@@ -15,7 +15,7 @@ window.onload = function()
 console.log("using "+window.params.get("iso")+" as iso");
     var emulator = window.emulator = new V86Starter({
     	wasm_path: "lib/v86/v86.wasm",
-        memory_size: 512 * 1024 * 1024,
+        memory_size: 256 * 1024 * 1024,
         vga_memory_size: 16 * 1024 * 1024,
         network_relay_url: "wss://relay.widgetry.org/",
         screen_container: document.getElementById("screen_container"),
@@ -32,6 +32,7 @@ console.log("using "+window.params.get("iso")+" as iso");
         },
      	cdrom: {
      	  url: window.params.get("iso"),
+	  async: true,
      	},
 
         autostart: true,
