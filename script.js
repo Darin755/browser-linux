@@ -12,6 +12,7 @@ window.onload = function()
         document.getElementById("screen_container").style.display = "block";
         document.getElementById("screenButton").innerHTML = "hide screen";
     }
+
 console.log("using "+window.params.get("iso")+" as iso");
     var emulator = window.emulator = new V86Starter({
     	wasm_path: "lib/v86/v86.wasm",
@@ -32,8 +33,7 @@ console.log("using "+window.params.get("iso")+" as iso");
         },
      	cdrom: {
      	  url: window.params.get("iso"),
-	  //async: true,
-	  //size: 31707136,
+	  async: (window.params.has("async") && (window.params.get("async") == "true")) ,
      	},
 
         autostart: true,
@@ -54,9 +54,11 @@ console.log("using "+window.params.get("iso")+" as iso");
    window.persist = false; //persist is off until browser support is verified
    window.autosave_lock = false; //prevent race conditions
    localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) {
-   	//disabled becuase of bugs
-   	//console.log("enabling web storage persist");
-   	//window.persist = true;
+   	//disabled by default becuase of bad performance
+   	if(window.params.has("autosave") && window.params.get("autosave") == "true") {
+   		console.log("enabling web storage persist");
+   		window.persist = true;
+   	}
    	if(value != null) {
 			state = value;
 			emulator.restore_state(state);
