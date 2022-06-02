@@ -32,7 +32,8 @@ console.log("using "+window.params.get("iso")+" as iso");
         },
      	cdrom: {
      	  url: window.params.get("iso"),
-	  async: true,
+	  //async: true,
+	  //size: 31707136,
      	},
 
         autostart: true,
