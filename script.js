@@ -79,7 +79,7 @@ emulator.add_listener("serial0-output-char", function(char)
             data += char;
         }
 
-        if(data.endsWith("$ "))
+        if(data.endsWith("$ ") || data.endsWith("# "))
         {
 
             //time to boot
