@@ -12,7 +12,6 @@ window.onload = function()
         document.getElementById("screen_container").style.display = "block";
         document.getElementById("screenButton").innerHTML = "hide screen";
     }
-
 console.log("using "+window.params.get("iso")+" as iso");
     var emulator = window.emulator = new V86Starter({
     	wasm_path: "lib/v86/v86.wasm",
@@ -82,7 +81,13 @@ emulator.add_listener("serial0-output-char", function(char)
 
         if(data.endsWith("$ "))
         {
-            console.log("Boot successful");
+
+            //time to boot
+            if(window.boot != true) {
+                console.log("Boot successful");
+            	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
+            	window.boot = true;
+            }
            // term_div.style.display = "block";
    	    waiting_text.style.display = "none";
    	    if(window.persist == true) {
