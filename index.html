@@ -43,15 +43,23 @@ color: white;
 <button id="save_restore" onclick="saveRestore()">save current point</button>
 <button onclick="saveToFile()">save to file</button>
 <button id="screenButton" onClick="toggleScreen()"> show screen </button>
+<label>
 <hr>
 Restore from file: <input id="restore_file" type="file">
 <hr>
+</label>
 <button id="fullscreen" onclick="fullscreen()">fullscreen</button>
 <button id="pause_button" onclick="startStop()">pause</button>
 <button id="clear_save" onclick="delete_data()">delete saved data</button>
 <button id="autosave_toggle" onclick="toggle_autosave()">enable autosave (experimental)</button>
 <button id="save" onclick="startAutosave()">save now</button>
 <p id="save_time"></p>
+<label>
+<hr>
+Send files to emulator
+<input id="upload_files" type="file">
+<hr>
+</label>
 </div>
 <p id="boot_time"></p>
 </body>

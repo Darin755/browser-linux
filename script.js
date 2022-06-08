@@ -37,7 +37,7 @@ console.log("using "+window.params.get("iso")+" as iso");
 
         autostart: true,
         preserve_mac_from_state_image: true,
-        disable_keyboard: true
+        //disable_keyboard: true
     });
 
    document.getElementById("toolbox_div").style.display = "none";
@@ -72,6 +72,7 @@ console.log("using "+window.params.get("iso")+" as iso");
    	document.getElementById("clear_save").disabled = true;
    });
 
+
 emulator.add_listener("serial0-output-char", function(char)
     {
         if(char !== "\r")
@@ -95,6 +96,7 @@ emulator.add_listener("serial0-output-char", function(char)
    	    }
         }
     });
+    
 document.getElementById("restore_file").onchange = function()
     {
         if(this.files.length)
@@ -120,8 +122,23 @@ document.getElementById("restore_file").onchange = function()
         waiting_text.style.display = "block";
     };
 
-}
+	document.getElementById("upload_files").onchange = function() {
+		var file = document.getElementById("upload_files").files;
+		//for(var i = 0;i<file.length;i++) {
+			window.filename = file[i].name; //a global variable
+			var reader = new FileReader();
+			reader.onload = function(file) {
+				var encoder = new TextEncoder('UTF-8');
+				var f = encoder.encode(file.currentTarget.result);
+				emulator.create_file("/user/"+window.filename, f);
+				window.filename = undefined; //unset it
+			};
+			reader.readAsText(file[i]);
+			console.log("uploaded "+file[i].name);
+		//}
+	}
 
+}
 
 function toggleToolbox() {
   var t = document.getElementById("toolbox_div");
@@ -255,4 +272,8 @@ function toggle_autosave() {
 		window.persist = true;
 	}
 }
+
+
+
+
 
