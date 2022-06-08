@@ -122,20 +122,19 @@ document.getElementById("restore_file").onchange = function()
         waiting_text.style.display = "block";
     };
 
-	document.getElementById("upload_files").onchange = function() {
-		var file = document.getElementById("upload_files").files;
-		for(var i = 0;i<file.length;i++) {
-			window.filename = file[i].name; //a global variable
-			var reader = new FileReader();
-			reader.onload = function(file) {
-				var encoder = new TextEncoder('UTF-8');
-				var f = encoder.encode(file.currentTarget.result);
-				emulator.create_file("/user/"+window.filename, f);
-				window.filename = undefined; //unset it
-			};
-			reader.readAsText(file[i]);
-			console.log("uploaded "+file[i].name);
-		}
+	document.getElementById("upload_files").onchange = function(e) {
+	    var files = e.target.files;
+	    for(var i=0;i<files.length;i++) {
+		var reader = new FileReader();
+		reader.onload = function(file) {
+		    return function(e) {
+		        var data = (new TextEncoder('UTF-8')).encode(e.target.result);
+		        emulator.create_file("/user/"+file.name, data);
+		        console.log("uploaded "+file.name);
+		    }
+		}(files[i]);
+		reader.readAsText(files[i]);
+	    }
 	}
 
 }
