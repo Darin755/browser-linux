@@ -124,7 +124,7 @@ document.getElementById("restore_file").onchange = function()
 
 	document.getElementById("upload_files").onchange = function() {
 		var file = document.getElementById("upload_files").files;
-		//for(var i = 0;i<file.length;i++) {
+		for(var i = 0;i<file.length;i++) {
 			window.filename = file[i].name; //a global variable
 			var reader = new FileReader();
 			reader.onload = function(file) {
@@ -135,7 +135,7 @@ document.getElementById("restore_file").onchange = function()
 			};
 			reader.readAsText(file[i]);
 			console.log("uploaded "+file[i].name);
-		//}
+		}
 	}
 
 }
