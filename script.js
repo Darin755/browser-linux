@@ -53,7 +53,7 @@ console.log("using "+window.params.get("iso")+" as iso");
    window.persist = false; //persist is off until browser support is verified
    window.autosave_lock = false; //prevent race conditions
    localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) {
-   	//disabled by default becuase of bad performance
+   	//disabled by default because of bad performance
    	if(window.params.has("autosave") && window.params.get("autosave") == "true") {
    		console.log("enabling web storage persist");
    		window.persist = true;
@@ -108,6 +108,7 @@ document.getElementById("restore_file").onchange = function()
             {
                 emulator.restore_state(e.target.result);
                 emulator.run();
+                emulator.serial0_send("$HOME/.profile\n");
             };
 
             filereader.readAsArrayBuffer(this.files[0]);
