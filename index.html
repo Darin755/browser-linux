@@ -17,12 +17,14 @@ color: white;
 <script src="lib/v86/libv86.js"></script>
 <script src="lib/xtermjs/xterm.js"></script>
 <script src="lib/localForage/localForage.js"></script>
+
 </head>
 
 
 <body>
+<script src="startup.js" defer></script>
+<script src="buttons.js" defer></script>
 <h4>Welcome to Browser Linux</h4>
-<script src="script.js"></script>
 
 <!-- A minimal structure for the Screen. Not used -->
 
@@ -41,25 +43,23 @@ color: white;
 <img id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
 <div id="toolbox_div" class="toolbox">
 <button id="save_restore" onclick="saveRestore()">save current point</button>
-<button onclick="saveToFile()">save to file</button>
-<button id="screenButton" onClick="toggleScreen()"> show screen </button>
-<label>
-<hr>
-Restore from file: <input id="restore_file" type="file">
-<hr>
-</label>
 <button id="fullscreen" onclick="fullscreen()">fullscreen</button>
+<button id="screenButton" onClick="toggleScreen()"> show screen </button>
 <button id="pause_button" onclick="startStop()">pause</button>
-<button id="clear_save" onclick="delete_data()">delete saved data</button>
-<button id="autosave_toggle" onclick="toggle_autosave()">enable autosave (experimental)</button>
-<button id="save" onclick="startAutosave()">save now</button>
-<p id="save_time"></p>
+<button onclick="saveToFile()">save to file</button>
 <label>
 <hr>
 Send files to emulator
 <input id="upload_files" type="file" multiple>
 <hr>
+<label>
+Restore from file: <input id="restore_file" type="file">
 </label>
+<hr>
+<button id="clear_save" onclick="delete_data()">delete saved data</button>
+<button id="autosave_toggle" onclick="toggle_autosave()">enable autosave (experimental)</button>
+<button id="save" onclick="startAutosave()">save now</button>
+<p id="save_time"></p>
 </div>
 <p id="boot_time"></p>
 </body>
