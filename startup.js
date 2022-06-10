@@ -12,6 +12,7 @@ if(window.params.has("screen") && (window.params.gtimeet("screen") == "true")) {
     document.getElementById("screen_container").style.display = "block";
     document.getElementById("screenButton").innerHTML = "hide screen";
 }
+window.boot = false; //not booted
 console.log("using "+window.params.get("iso")+" as iso");
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
@@ -84,17 +85,22 @@ emulator.add_listener("serial0-output-char", function(char) {
         {
 
             //time to boot
-            if(window.boot != true) {
+            if(window.boot == false) {
                 console.log("Boot successful");
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
             	localStorage.setItem("version", window.version);
-            	window.boot = true;	
+            	waiting_text.style.display = "none";
+   	            if(window.persist == true) {
+   	    	        startAutosave(true); //start autosave
+   	            }
+            	window.boot = true;
+            } else if(window.boot == "reboot") {
+                window.boot = false;
             }
            // term_div.style.display = "block";
-   	    waiting_text.style.display = "none";
-   	    if(window.persist == true) {
-   	    	startAutosave(true); //start autosave
-   	    }
+   	    
+
+   	    
         }
 });
     
@@ -150,9 +156,10 @@ var current_version = localStorage.getItem("version");
         if(current_version < window.version) {
             console.log("newer version detected. Reboot to install");
             if(window.confirm("There is a newer version of the rootfs available. Reboot Now?") ) {
-                emulator.serial0_send("sudo reboot\n");
-                window.boot = false;
+                emulator.serial0_send("sudo reboot && while true; do clear; done\n");//reboot
+                window.boot = "reboot";
                 document.getElementById("waiting_text").style.display = "block";
+                console.log("rebooting . . .");
             }  
         } else {
             console.log("no updates available");
