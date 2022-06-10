@@ -104,13 +104,15 @@ function saveRestore() {
 }
 
 function toggle_autosave() {
-	var b = document.getElementById("autosave_toggle")
-	if(b.innerHTML == "disable autosave") {
-		b.innerHTML = "enable autosave";
-		window.persist = false;
-	} else {
+	var b = document.getElementById("autosave_toggle");
+	if(localStorage.getItem("autosave") == null || localStorage.getItem("autosave") == false) {
 		b.innerHTML = "disable autosave";
+		localStorage.setItem("autosave", true);
 		window.persist = true;
+	} else {
+		b.innerHTML = "enable autosave";
+		localStorage.setItem("autosave", false);
+		window.persist = false;
 	}
 }
 

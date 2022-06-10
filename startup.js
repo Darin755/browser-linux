@@ -12,6 +12,11 @@ if(window.params.has("screen") && (window.params.gtimeet("screen") == "true")) {
     document.getElementById("screen_container").style.display = "block";
     document.getElementById("screenButton").innerHTML = "hide screen";
 }
+if(localStorage.getItem("autosave") == true) {
+		document.getElementById("autosave_toggle").innerHTML = "disable autosave";
+		localStorage.setItem("autosave", true);
+		window.persist = true;
+}
 window.boot = false; //not booted
 console.log("using "+window.params.get("iso")+" as iso");
 var emulator = window.emulator = new V86Starter({
