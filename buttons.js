@@ -114,6 +114,7 @@ function toggle_autosave() {
 		b.innerHTML = "disable autosave";
 		localStorage.setItem("autosave", true);
 		window.persist = true;
+		startAutosave();
 		return true;
 	}
 }
