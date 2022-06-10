@@ -1,3 +1,5 @@
+//version
+window.version = 1.0;
 //parse url
 var url = window.location.search.substring(1);
 window.params = new URLSearchParams(url);
@@ -8,7 +10,7 @@ if(!(window.params.has("iso"))) {
 //screen
 if(window.params.has("screen") && (window.params.gtimeet("screen") == "true")) {
     document.getElementById("screen_container").style.display = "block";
-    document.getElementById("scrbceenButton").innerHTML = "hide screen";
+    document.getElementById("screenButton").innerHTML = "hide screen";
 }
 console.log("using "+window.params.get("iso")+" as iso");
 var emulator = window.emulator = new V86Starter({
@@ -61,7 +63,7 @@ document.getElementById("toolbox_div").style.display = "none";
 			emulator.restore_state(state);
 			emulator.serial0_send("$HOME/.profile\n");//input after restore
 			document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
-			
+			checkForUpdates();	
     }
     
 }).catch(function(err) {
@@ -85,7 +87,8 @@ emulator.add_listener("serial0-output-char", function(char) {
             if(window.boot != true) {
                 console.log("Boot successful");
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
-            	window.boot = true;
+            	localStorage.setItem("version", window.version);
+            	window.boot = true;	
             }
            // term_div.style.display = "block";
    	    waiting_text.style.display = "none";
@@ -113,8 +116,8 @@ function restore() {
 }
 
 function getTimestamp() {
-var d = new Date();
-return d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+    var d = new Date();
+    return d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 }
 
 
@@ -140,8 +143,25 @@ function startAutosave(auto) {
 	}
 }
 
-
-
+function checkForUpdates() {
+console.log("checking for updates . . .");
+var current_version = localStorage.getItem("version");
+    if(current_version != null) {
+        if(current_version < window.version) {
+            console.log("newer version detected. Reboot to install");
+            if(window.confirm("There is a newer version of the rootfs available. Reboot Now?") ) {
+                emulator.serial0_send("sudo reboot\n");
+                window.boot = false;
+                document.getElementById("waiting_text").style.display = "block";
+            }  
+        } else {
+            console.log("no updates available");
+        }
+    } else {
+        console.log("no version number (old save?)");
+        localStorage.setItem("version",window.version); //blindly set it but that the best that we can do
+    }
+}
 
 
 
