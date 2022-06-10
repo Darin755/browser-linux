@@ -24,7 +24,7 @@
 
  - it can take anywhere from 30-60 sec to boot depending on hardware
 
- - open the toolbox (the icon at the bottom) and press save now
+ - open the toolbox (the icon at the bottom) and press save now and/or enable autosave
 
 ## License
 

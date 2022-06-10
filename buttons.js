@@ -105,14 +105,16 @@ function saveRestore() {
 
 function toggle_autosave() {
 	var b = document.getElementById("autosave_toggle");
-	if(localStorage.getItem("autosave") == null || localStorage.getItem("autosave") == false) {
-		b.innerHTML = "disable autosave";
-		localStorage.setItem("autosave", true);
-		window.persist = true;
-	} else {
+	if(window.persist) {
 		b.innerHTML = "enable autosave";
 		localStorage.setItem("autosave", false);
 		window.persist = false;
+		return false;
+	} else {
+		b.innerHTML = "disable autosave";
+		localStorage.setItem("autosave", true);
+		window.persist = true;
+		return true;
 	}
 }
 
