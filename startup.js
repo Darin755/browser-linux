@@ -1,3 +1,5 @@
+//start message
+console.log("Welcome to Browser Linux");
 //version
 window.version = 1.0;
 //parse url
@@ -14,6 +16,21 @@ if(window.params.has("screen") && (window.params.get("screen") == "true")) {
 }
 if(window.params.has("cmd")) {
     window.cmd = window.params.get("cmd");
+}
+//autosave
+if(window.params.has("autosave") && window.params.get("autosave") == "true") {
+	console.log("enabling web storage persist");
+	window.persist = true;
+}
+//embed 
+if(window.params.has("embed") && window.params.get("embed") == "true") {
+    var fluffs = document.getElementsByClassName("fluff");
+    for(var i = 0;i<fluffs.length;i++) {
+        fluffs[i].style.display = "none";
+    }
+    document.body.append(document.getElementById("save"));
+    document.body.append(document.getElementById("clear_save"));
+    window.persist = true;
 }
 //autosave restore
 if(localStorage.getItem("autosave") == 'true') {
@@ -59,14 +76,10 @@ document.getElementById("toolbox_div").style.display = "none";
    var data = "";
    
    //check if previous instance
-   window.persist = false; //persist is off until browser support is verified
+
    window.autosave_lock = false; //prevent race conditions
    localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) {
-   	//disabled by default because of bad performance
-   	if(window.params.has("autosave") && window.params.get("autosave") == "true") {
-   		console.log("enabling web storage persist");
-   		window.persist = true;
-   	}
+
    	if(value != null) {
 			state = value;
 			emulator.restore_state(state);

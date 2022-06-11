@@ -6,11 +6,7 @@ body {
 background-color: black;
 color: white;
 }
-.github {
-  position: fixed;
-  bottom: 0px;
-  color: blue;
-}
+
 .toolbox {
   border: 1px outset white;
   background-color: black;
@@ -21,14 +17,11 @@ color: white;
 <script src="lib/v86/libv86.js"></script>
 <script src="lib/xtermjs/xterm.js"></script>
 <script src="lib/localForage/localForage.js"></script>
-
 </head>
-
-
 <body>
 <script src="startup.js" defer></script>
 <script src="buttons.js" defer></script>
-<h4>Welcome to Browser Linux</h4>
+<h4 class="fluff">Welcome to Browser Linux</h4>
 
 <!-- A minimal structure for the Screen. Not used -->
 
@@ -41,8 +34,8 @@ color: white;
  Waiting for boot to complete, please wait . . . <br>
 </p>
 <div id="terminal"></div>
-<h4>It's Linux, in a Browser</h4>
-<img id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
+<h4 class="fluff">It's Linux, in a Browser</h4>
+<img class="fluff" id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
 <div id="toolbox_div" class="toolbox">
 <button id="save_restore" onclick="saveRestore()">save current point</button>
 <button id="fullscreen" onclick="fullscreen()">fullscreen</button>
@@ -63,6 +56,6 @@ Restore from file: <input id="restore_file" type="file">
 <button id="save" onclick="startAutosave()">save now</button>
 <p id="save_time"></p>
 </div>
-<p id="boot_time"></p>
-<a class="github" href="https://github.com/Darin755/browser-linux">Github</a>
+<p class="fluff" id="boot_time"></p>
+<a class="fluff" href="https://github.com/Darin755/browser-linux">Github</a>
 </body>
