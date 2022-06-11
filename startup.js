@@ -8,9 +8,12 @@ if(!(window.params.has("iso"))) {
 	window.params.set("iso","rootfs.iso");
 }
 //screen
-if(window.params.has("screen") && (window.params.gtimeet("screen") == "true")) {
+if(window.params.has("screen") && (window.params.get("screen") == "true")) {
     document.getElementById("screen_container").style.display = "block";
     document.getElementById("screenButton").innerHTML = "hide screen";
+}
+if(window.params.has("cmd")) {
+    window.cmd = window.params.get("cmd");
 }
 //autosave restore
 if(localStorage.getItem("autosave") == 'true') {
@@ -95,10 +98,13 @@ emulator.add_listener("serial0-output-char", function(char) {
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
             	localStorage.setItem("version", window.version);
             	waiting_text.style.display = "none";
+            	window.boot = true;
+            	if(window.cmd != undefined) {
+            	    emulator.serial0_send(window.cmd + "\n");
+            	}
    	            if(window.persist == true) {
    	    	        startAutosave(true); //start autosave
    	            }
-            	window.boot = true;
             } else if(window.boot == "reboot") {
                 window.boot = false;
             }
