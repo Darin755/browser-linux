@@ -25,12 +25,18 @@
  - it can take anywhere from 30-60 sec to boot depending on hardware
 
  - open the toolbox (the icon at the bottom) and press save now and/or enable autosave
+ - See [saving.md](docs/saving.md)
 
 ## How to embed
 
- - It is actually pretty simple to do. You can use this HTML as a starting point: 
- - ```<iframe width=750px height=450px src="http://0.0.0.0:8000/?embed=true"></iframe>```
- - See [Embed.html](embed.html) if you need more help
+ - It is actually pretty simple to do.
+ - See [Embed.html](embed.html)
+ 
+## Documentation
+ - How to save: [saving.md](docs.saving.md)
+ - How to use the toolbox: [toolbox.md](docs/toolbox.md)
+ - url parameters: [parameters.md](docs/parameters.md)
+ - updates: [updates.md](docs/updates.md)
 
 ## License
 
