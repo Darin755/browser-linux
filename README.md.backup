@@ -38,13 +38,13 @@
  - url parameters: [parameters.md](docs/parameters.md)
  - internet: [internet.md](docs/internet.md)
  - updates: [updates.md](docs/updates.md)
- - How to embed: [embed.md](docs/embed.md)
+ - How to embed: []
 
 ## Limitations
  - It is a bit slow
    - It is fine for running simple programs but as soon as you try to run anything that requires calculations it will slow down imensly because the cpu is emulated by v86
  - No Package Manager
-   - Their is not package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
+   - Their is no package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
 
 ## License
 
