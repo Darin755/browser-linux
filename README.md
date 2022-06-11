@@ -48,6 +48,9 @@
  - No Package Manager
    - Their is not package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
 
+## Contributing
+ - Feel free to open a issue, pull request or discussion
+
 ## License
 
  - browser-linux itself is under GPLv2 License
