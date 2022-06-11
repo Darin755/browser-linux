@@ -30,7 +30,7 @@
 ## How to embed
 
  - It is actually pretty simple to do.
- - See [Embed.html](embed.html)
+ - See [Embed.md](docs/embed.md)
  
 ## Documentation
  - How to save: [saving.md](docs.saving.md)
