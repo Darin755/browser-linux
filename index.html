@@ -22,24 +22,20 @@ color: white;
 <script src="startup.js" defer></script>
 <script src="buttons.js" defer></script>
 <h4 class="fluff">Welcome to Browser Linux</h4>
-
-<!-- A minimal structure for the Screen. Not used -->
-
-<div id="screen_container" style="display: none;">
-    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
-    <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
-</div>
-
 <p id="waiting_text">
  Waiting for boot to complete, please wait . . . <br>
 </p>
+<div id="screen_container">
+    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+    <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
+</div>
 <div id="terminal"></div>
 <h4 class="fluff">It's Linux, in a Browser</h4>
 <img class="fluff" id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
 <div id="toolbox_div" class="toolbox">
 <button id="save_restore" onclick="saveRestore()">save current point</button>
 <button id="fullscreen" onclick="fullscreen()">fullscreen</button>
-<button id="screenButton" onClick="toggleScreen()"> show screen </button>
+<button id="screenButton" onClick="toggleScreen()"> hide screen </button>
 <button id="pause_button" onclick="startStop()">pause</button>
 <button onclick="saveToFile()">save to file</button>
 <label>

@@ -10,10 +10,15 @@ if(!(window.params.has("iso"))) {
 	window.params.set("iso","rootfs.iso");
 }
 //screen
-if(window.params.has("screen") && (window.params.get("screen") == "true")) {
-    document.getElementById("screen_container").style.display = "block";
-    document.getElementById("screenButton").innerHTML = "hide screen";
-}
+window.screen = false; //default value
+if(window.params.has("screen")) {
+    if(window.params.get("screen") == "true") {
+        window.screen = true; //don't hide the screen after boot
+    } else {
+        document.getElementById("screen_container").style.display = "none";
+        document.getElementById("screenButton").innerHTML = "show screen";
+    }
+} 
 //cmd
 if(window.params.has("cmd")) {
     window.cmd = window.params.get("cmd");
@@ -66,20 +71,17 @@ var emulator = window.emulator = new V86Starter({
     preserve_mac_from_state_image: true,
     //disable_keyboard: true
 });
-
-document.getElementById("toolbox_div").style.display = "none";
-   //wait for boot
+//configure page
    var term_div = document.getElementById("terminal");
    var waiting_text = document.getElementById("waiting_text");
-   
+   setTimeout(function() {document.getElementById("terminal").style.display = "none";},800);//hide screen    
    waiting_text.style.display = "block";
+   document.getElementById("toolbox_div").style.display = "none";//hide toolbox
    var data = "";
-   
-   //check if previous instance
 
+//check for save
    window.autosave_lock = false; //prevent race conditions
    localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) {
-
    	if(value != null) {
 			state = value;
 			emulator.restore_state(state);
@@ -96,6 +98,8 @@ document.getElementById("toolbox_div").style.display = "none";
    	document.getElementById("clear_save").disabled = true;
 });
 
+
+//wait for boot
 emulator.add_listener("serial0-output-char", function(char) {
         if(char !== "\r")
         {
@@ -108,9 +112,14 @@ emulator.add_listener("serial0-output-char", function(char) {
             //time to boot
             if(window.boot == false) {
                 console.log("Boot successful");//boot successful
+                document.getElementById("terminal").style.display = "block";//show the terminal
+                if(!window.screen) {//continue showing the screen if false
+                    document.getElementById("screen_container").style.display = "none";//hide the screen
+                    document.getElementById("screenButton").innerHTML = "show screen";
+                }
+                waiting_text.style.display = "none";
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
             	localStorage.setItem("version", window.version);
-            	waiting_text.style.display = "none";
             	window.boot = true;
             	if(window.cmd != undefined) {//cmd
             	    emulator.serial0_send(window.cmd + "\n");
@@ -121,10 +130,6 @@ emulator.add_listener("serial0-output-char", function(char) {
             } else if(window.boot == "reboot") {//reboot for updates
                 window.boot = false;
             }
-           // term_div.style.display = "block";
-   	    
-
-   	    
         }
 });
     
