@@ -2,7 +2,7 @@
 
 ## [LIVE DEMO](https://darin755.github.io/browser-linux/)
 
-<img src="screenshot.png">
+<img src="docs/images/screenshot.png">
 
 *star it if you like it*
 
