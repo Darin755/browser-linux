@@ -77,7 +77,7 @@ var emulator = window.emulator = new V86Starter({
 //configure page
    var term_div = document.getElementById("terminal");
    var waiting_text = document.getElementById("waiting_text");
-   setTimeout(function() {document.getElementById("terminal").style.display = "none";},800);//hide screen    
+   setTimeout(function() {document.getElementById("terminal").style.display = "none";},1200);//hide screen    
    waiting_text.style.display = "block";
    document.getElementById("toolbox_div").style.display = "none";//hide toolbox
    var data = "";
