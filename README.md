@@ -47,6 +47,8 @@
    - It is fine for running simple programs but as soon as you try to run anything that requires calculations it will slow down imensly because the cpu is emulated by v86
  - No Package Manager
    - Their is not package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
+ - No Man pages
+   - Man pages are to large and not included. 
 
 ## Contributing
  - Feel free to open a issue, pull request or discussion
