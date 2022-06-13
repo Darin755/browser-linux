@@ -46,7 +46,7 @@
  - It is a bit slow
    - It is fine for running simple programs but as soon as you try to run anything that requires cpu it will slow down immensely because the cpu is emulated by v86
  - No Package Manager
-   - Their is not package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
+   - Their is no package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
  - No Man pages
    - Man pages are to large and are not included. 
 
@@ -55,5 +55,5 @@
 
 ## License
 
- - browser-linux itself is under GPLv2 License
+ - Browser linux itself is under GPLv2 License
  - see LICENSE
