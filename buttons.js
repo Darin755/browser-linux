@@ -124,7 +124,7 @@ function delete_data() {
 		window.autosave_lock = true;
 		localforage.setItem("snapshot-"+window.params.get("iso"), null).then(function () {
 			console.log("deleted");
-			window.location.reload();//reload the page
+			window.location.reload(true);//reload the page
 		});
 	}
 }

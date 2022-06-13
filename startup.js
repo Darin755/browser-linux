@@ -48,6 +48,7 @@ if(localStorage.getItem("autosave") == 'true') {
 }
 window.boot = false; //not booted
 console.log("using "+window.params.get("iso")+" as iso");
+//start v86
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
     memory_size: 256 * 1024 * 1024,
@@ -66,7 +67,7 @@ var emulator = window.emulator = new V86Starter({
         baseurl: "flat/",
     },
     cdrom: {
-        url: window.params.get("iso"), //async
+        url: window.params.get("iso")+"?version="+window.version, //async
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,
     },
 
@@ -77,7 +78,7 @@ var emulator = window.emulator = new V86Starter({
 //configure page
    var term_div = document.getElementById("terminal");
    var waiting_text = document.getElementById("waiting_text");
-
+//commented out because of issues with slow devices
   // setTimeout(function() {//wait for xterm
 //        document.getElementById("terminal").style.display = "none";
  //  },1200);//hide screen 
@@ -126,7 +127,6 @@ emulator.add_listener("serial0-output-char", function(char) {
                 }
                 waiting_text.style.display = "none";
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
-            	localStorage.setItem("version", window.version);
             	window.boot = true;
             	if(window.cmd != undefined) {//cmd
             	    emulator.serial0_send(window.cmd + "\n");
@@ -134,8 +134,17 @@ emulator.add_listener("serial0-output-char", function(char) {
    	            if(window.persist == true) {
    	    	        startAutosave(true); //start autosave
    	            }
-            } else if(window.boot == "reboot") {//reboot for updates
-                window.boot = false;
+            } else if(window.boot == "reboot_stage1") {//reboot for updates
+                console.log("reboot to update started");
+                window.boot = "reboot_stage2";
+  
+            } else if(window.boot == "reboot_stage2") {
+                startAutosave(true);
+                console.log("reboot successful. Reloading . . .");
+                startAutosave();
+                localStorage.setItem("version", window.version);
+                window.location.reload(true);
+                
             }
         }
 });
@@ -167,6 +176,7 @@ function getTimestamp() {
 function startAutosave(auto) {
 	if(!window.autosave_lock) {
 		window.autosave_lock = true;
+		localStorage.setItem("version", window.version);
 		emulator.save_state(function(error, new_state){
 			if(error){
 				console.log(error);
@@ -193,7 +203,7 @@ var current_version = localStorage.getItem("version");
             console.log("newer version detected. Reboot to install");
             if(window.confirm("There is a newer version of the rootfs available. Reboot Now?") ) {
                 emulator.serial0_send("sudo reboot && while true; do clear; done\n");//reboot
-                window.boot = "reboot";//boot status = reboot
+                window.boot = "reboot_stage1";//boot status = reboot
                 document.getElementById("waiting_text").style.display = "block";
                 console.log("rebooting . . .");
             }  
