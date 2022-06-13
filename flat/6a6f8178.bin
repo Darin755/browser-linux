@@ -12,6 +12,7 @@ vim
 nano
 mg (emacs)
 mc
+bc
 htop
 sudo
 ash (default shell)
