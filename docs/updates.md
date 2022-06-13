@@ -1,4 +1,4 @@
-## Browser Linux updates
+## Browser Linux updates (NOT WORKING - see this [discussion](https://github.com/copy/v86/discussions/685))
 - ### The iso for browser linux will be updated from time to time. However if you have a saved state it will not be updated. That is where the updater comes in
 - ### The updater
   - ### The updater check to see if a older version is running.
