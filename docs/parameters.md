@@ -3,8 +3,9 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
 
 - iso=\<*iso file*> [default rootfs.iso]
   - This allows you to pass a custom iso file. Browser Linux comes with 2 isos which are rootfs.iso and minimal.iso.
-- screen=\<*true*> [default false]
-  - When this is set the screen is enabled on load.
+- screen=\<*true*> [default none]
+  - When this is set to true the screen does not automatically hide on boot
+  - When this is set to false the screen is hidden immediately and not show
 - cmd=\<*command*> [default none]
   - This allows you to run a command as soon as the is a shell. You can run anything from ```pfetch``` to ```vim```. 
 - autosave=\<*true*> [default false]

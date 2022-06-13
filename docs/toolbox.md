@@ -9,7 +9,7 @@
  - *Fullscreen*
    - Makes it fullscreen
  - *Show Screen*
-   - Shows the screen. Useful for seeing boot status
+   - Shows and hides the screen.
  - *Pause*
    - Pauses the emulator. Click again to resume
  - *Save to File*
