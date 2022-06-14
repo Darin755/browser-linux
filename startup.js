@@ -1,6 +1,6 @@
 if(!window.WebAssembly) {//if no web assembly
     alert("Your browser is not supported because it doesn't support WebAssembly");
-    document.write("unsupported - no web assembly");
+    document.write("unsupported - no Web Assembly");
 }
 //start message
 console.log("Welcome to Browser Linux");
@@ -105,6 +105,7 @@ var emulator = window.emulator = new V86Starter({
     
 }).catch(function(err) {
    	console.log("error with web storage: "+err);
+   	alert("web storage had the following error: "+err+"Reloading may fix the issue.");
    	window.persist = false;//no autosave
    	document.getElementById("save").disabled = true;
    	document.getElementById("autosave_toggle").disabled = true;
