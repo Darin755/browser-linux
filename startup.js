@@ -1,5 +1,6 @@
 if(!window.WebAssembly) {//if no web assembly
     alert("Your browser is not supported because it doesn't support WebAssembly");
+    document.write("unsupported - no web assembly");
 }
 //start message
 console.log("Welcome to Browser Linux");
