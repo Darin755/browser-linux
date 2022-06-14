@@ -1,5 +1,5 @@
 ## Browser linux - The Toolbox
-<img src=toolbox.png>
+<img src=images/toolbox.png>
 
 ### The toolbox can be accessed by clicking the <img src="../icon/toolbox.png" width=20> icon.
 
