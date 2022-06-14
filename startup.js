@@ -98,7 +98,7 @@ var emulator = window.emulator = new V86Starter({
 			if(localStorage.getItem("noupdates") != 'true') {
 			    checkForUpdates();
 			} else {
-			    console.log("user opted out of updates - not checking");
+			    console.log("user opted out of rootfs updates - not checking");
 			}
     }
     
@@ -199,6 +199,7 @@ var current_version = localStorage.getItem("version");
             } else if (!window.confirm("Would you like to see this message again?")) {
                 localStorage.setItem("noupdates",true);
                 console.log("user opted out of updates");
+                alert("You will no longer be receiving any rootfs updates - Delete save to opt back in");
             }
         } else {
             console.log("no updates available");
