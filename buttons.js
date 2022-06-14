@@ -122,6 +122,7 @@ function toggle_autosave() {
 function delete_data() {
 	if(window.confirm("You are about to delete saved data. Are you sure you want to continue? THIS CAN NOT BE UNDONE!!!")){
 		window.autosave_lock = true;
+		localStorage.setItem("noupdates", false);
 		localforage.setItem("snapshot-"+window.params.get("iso"), null).then(function () {
 			 console.log("deleted save. Reloading . . .");
 			window.location.reload(true);//reload the page

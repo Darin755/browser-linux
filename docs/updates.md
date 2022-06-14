@@ -1,6 +1,6 @@
-## Browser Linux updates (NOT WORKING - see this [discussion](https://github.com/copy/v86/discussions/685))
-- ### The iso for browser linux will be updated from time to time. However if you have a saved state it will not be updated. That is where the updater comes in
-- ### The updater
-  - ### The updater check to see if a older version is running.
-  - ### If a older version is running the updater will prompt the user for a restart linux. **Data stored in the filesystem will be lost but data stored in /home should be preserved.**
-  - ### Updating save state files: You can just type ```sudo reboot``` and press enter
+## Browser Linux updates
+- ### The iso for browser linux will be updated from time to time. However if you have a saved state it will not be updated. The updater will notify the user of a newer version
+- ### updating
+  - ### If the user selects *ok* at both prompts the updater will clear saved data and reload the page.
+- ### Opting out
+  - ### Opting out means that the user will no long have any prompts about updates. They can always delete all data and start fresh. See [toolbox](toolbox.md)
