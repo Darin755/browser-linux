@@ -4,7 +4,7 @@ if(!window.WebAssembly) {//if no web assembly
 //start message
 console.log("Welcome to Browser Linux");
 //version
-window.version = 1.0;
+window.version = 1.1;
 //parse url
 var url = window.location.search.substring(1);
 window.params = new URLSearchParams(url);
@@ -95,7 +95,11 @@ var emulator = window.emulator = new V86Starter({
 			emulator.restore_state(state);
 			emulator.serial0_send("$HOME/.profile\n");//input after restore
 			document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
-			checkForUpdates();	
+			if(localStorage.getItem("noupdates") != 'true') {
+			    checkForUpdates();
+			} else {
+			    console.log("user opted out of updates - not checking");
+			}
     }
     
 }).catch(function(err) {
@@ -134,17 +138,6 @@ emulator.add_listener("serial0-output-char", function(char) {
    	            if(window.persist == true) {
    	    	        startAutosave(true); //start autosave
    	            }
-            } else if(window.boot == "reboot_stage1") {//reboot for updates
-                console.log("reboot to update started");
-                window.boot = "reboot_stage2";
-  
-            } else if(window.boot == "reboot_stage2") {
-                startAutosave(true);
-                console.log("reboot successful. Reloading . . .");
-                startAutosave();
-                localStorage.setItem("version", window.version);
-                window.location.reload(true);
-                
             }
         }
 });
@@ -200,13 +193,13 @@ console.log("checking for updates . . .");
 var current_version = localStorage.getItem("version");
     if(current_version != null) {
         if(current_version < window.version) {
-            console.log("newer version detected. Reboot to install");
-            if(window.confirm("There is a newer version of the rootfs available. Reboot Now?") ) {
-                emulator.serial0_send("sudo reboot && while true; do clear; done\n");//reboot
-                window.boot = "reboot_stage1";//boot status = reboot
-                document.getElementById("waiting_text").style.display = "block";
-                console.log("rebooting . . .");
-            }  
+            console.log("newer version detected. Delete saved data to get latest");
+            if(window.confirm("There is a newer version of the rootfs available. Delete all data and reload Now?") ) {
+                delete_data();
+            } else if (!window.confirm("Would you like to see this message again?")) {
+                localStorage.setItem("noupdates",true);
+                console.log("user opted out of updates");
+            }
         } else {
             console.log("no updates available");
         }
@@ -215,7 +208,4 @@ var current_version = localStorage.getItem("version");
         localStorage.setItem("version",window.version); //blindly set it but that the best that we can do
     }
 }
-
-
-
 
