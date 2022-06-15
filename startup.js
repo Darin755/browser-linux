@@ -105,7 +105,7 @@ var emulator = window.emulator = new V86Starter({
     
 }).catch(function(err) {
    	console.log("error with web storage: "+err);
-   	alert("web storage had the following error: "+err+"Reloading may fix the issue.");
+   	alert("web storage had the following error: "+err+". Reloading may fix the issue.");
    	window.persist = false;//no autosave
    	document.getElementById("save").disabled = true;
    	document.getElementById("autosave_toggle").disabled = true;
