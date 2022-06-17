@@ -52,6 +52,7 @@
 
 ## Contributing
  - Feel free to open a issue, pull request or discussion
+ - If you would like to see packages added, please open a [discussion](https://github.com/Darin755/browser-linux/discussions)
 
 ## License
 
