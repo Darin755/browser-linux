@@ -41,14 +41,15 @@
  - internet: [internet.md](docs/internet.md)
  - updates: [updates.md](docs/updates.md)
  - How to embed: [embed.md](docs/embed.md)
+ - Static-get: [Static-get.md](docs/static-get.md)
 
 ## Limitations
  - It is a bit slow
    - It is fine for running simple programs but as soon as you try to run anything that requires cpu it will slow down immensely because the cpu is emulated by v86
- - No Package Manager
-   - Their is no package manager because a package manager would require a stable internet connection. see [internet.md](docs/internet.md)
  - No Man pages
    - Man pages are to large and are not included. 
+ - No reliable package manager
+   - static-get get is good for small programs but is not a functional package manager. It also suffers limitations due to internet. See [internet.md](docs/internet.md)
 
 ## Contributing
  - Feel free to open a issue, pull request or discussion
