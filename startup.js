@@ -214,3 +214,25 @@ var current_version = localStorage.getItem("version");
     }
 }
 
+//listen for postMessage
+window.addEventListener("message", (event) => {
+    var data = event.data;
+    if(data == "toggleScreen") {
+        toggleScreen();
+    } else if(data == "save") {
+        startAutosave();
+    } else if(data == "pause") {
+        emulator.stop();
+    } else if(data == "play") {
+        emulator.run();
+    } else if(data == "togglePause") {
+        if(emulator.is_running()) {
+            emulator.stop();
+        } else {
+            emulator.run();
+        }
+    } else if(data.indexOf("cmd=") == 0) {
+        emulator.serial0_send(data.substring(4)+'\n');
+    }
+
+});
