@@ -15,4 +15,4 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
 - async=\<*true*> [default false]
   - This loads the image as needed instead of all at once. It can make it faster in some cases but usually causes more problems than is solves.
 - autostart=\<*false*>
-  - This option starts browser linux in a paused state. To start it, select *run* from the toolbox 
+  - This option starts browser linux in a paused state. To start it, select *run* from the toolbox. If it is in a iframe you can sent the *play* message. See [embed.md](embed.md)
