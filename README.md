@@ -33,6 +33,7 @@
 
  - It is actually pretty simple to do.
  - See [Embed.md](docs/embed.md)
+ - See the [example](https://darin755.github.io/browser-linux/embed.html)
  
 ## Documentation
  - How to save: [saving.md](docs.saving.md)
