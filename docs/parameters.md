@@ -14,3 +14,5 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
   - This option removes all functionality except for the terminal and the *save* button. See [embed.html](embed.html)
 - async=\<*true*> [default false]
   - This loads the image as needed instead of all at once. It can make it faster in some cases but usually causes more problems than is solves.
+- autostart=\<*false*>
+  - This option starts browser linux in a paused state. To start it, select *run* from the toolbox 
