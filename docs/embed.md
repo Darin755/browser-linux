@@ -12,7 +12,7 @@
     - #### pause
       - pauses the emulator
     - #### play
-      - unpauses the emulator. Can be used to start the emulator when ```autostart=false``` is pased into the url
+      - unpauses the emulator. 
     - #### togglePause
       - toggles pause
     - #### cmd=CMD

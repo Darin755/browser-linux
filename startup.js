@@ -32,14 +32,6 @@ if(window.params.has("autosave") && window.params.get("autosave") == "true") {
 	console.log("enabling web storage persist");
 	window.persist = true;
 }
-//autostart
-if(window.params.has("autostart") && (window.params.get("autostart") == "false")) {
-	console.log("starting paused");
-	window.autostart = false;
-	document.getElementById("pause_button").innerHTML = "run";
-} else {
-    window.autostart = true;
-}
 //embed 
 if(window.params.has("embed") && window.params.get("embed") == "true") {
     var fluffs = document.getElementsByClassName("fluff");
@@ -80,7 +72,7 @@ var emulator = window.emulator = new V86Starter({
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,
     },
 
-    autostart: window.autostart,
+    autostart: true,
     preserve_mac_from_state_image: true,
     //disable_keyboard: true
 });

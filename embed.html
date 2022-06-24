@@ -4,8 +4,6 @@
 <h2>Hello</h2>
 <p>This is a example of how to embed browser linux in a web page using an iframe. The recommended dimensions are 750x500. See <a href="https://github.com/Darin755/browser-linux/blob/master/docs/embed.md">embedding</a> for more info.</p>
 <br>
-<p>It starts paused. Press run to start</p>
-<br>
 <button onclick="sendMsg('toggleScreen')">toggle screen</button>
 <button onclick="sendMsg('save')">save</button>
 <button onclick="sendMsg('pause')">pause</button>
@@ -17,7 +15,7 @@
 <button onclick="sendMsg('cmd=sl')">run sl</button>
 <button onclick="sendMsg('cmd=cat README')">print README</button>
 <br>
-<iframe id="iframe" width=750px height=500px src="https://darin755.github.io/browser-linux?embed=true&autostart=false"></iframe>
+<iframe id="iframe" width=750px height=500px src="https://darin755.github.io/browser-linux?embed=true"></iframe>
 
 <script>
 //basic set message function
