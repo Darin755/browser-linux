@@ -89,52 +89,36 @@ var emulator = window.emulator = new V86Starter({
    var data = "";
 
 //check for save
-   window.autosave_lock = false; //prevent race conditions
-   localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { 
-   	if(value != null) {
-			state = value;
-			emulator.restore_state(state);
-			emulator.serial0_send("$HOME/.profile\n");//input after restore
-			document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
-			document.getElementById("storage_error").style.display = "none";
-			if(localStorage.getItem("noupdates") != 'true') {
-			    checkForUpdates();
-			} else {
-			    console.log("user opted out of rootfs updates - not checking");
-			}
+loadSaves();//run the function below
+function loadSaves() {
+    if(emulator.is_running()) {//check if it is loaded
+        window.autosave_lock = false; //prevent race conditions
+        localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { 
+           	if(value != null) {
+			        state = value;
+			        emulator.restore_state(state);
+			        emulator.serial0_send("$HOME/.profile\n");//input after restore
+			        document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
+			        document.getElementById("storage_error").style.display = "none";
+			        if(localStorage.getItem("noupdates") != 'true') {
+			            checkForUpdates();
+			        } else {
+			            console.log("user opted out of rootfs updates - not checking");
+			        }
+            }
+        }).catch(function(err) {//error
+                   	console.log("error with web storage: "+err);
+                   	window.persist = false;//no autosave
+                   	document.getElementById("save").disabled = true;
+                   	document.getElementById("autosave_toggle").disabled = true;
+                   	document.getElementById("clear_save").disabled = true;
+                   	document.getElementById("storage_error").style.display = "block";
+ 
+        });
+    } else {//v86 isn't ready
+        setTimeout(loadSaves,1000);//check every second until ready
     }
-
-}).catch(function(err) {
-    //try again after a while
-    //same code as above
-    console.log("Failed to read from storage. Trying again in 1 second");
-       setTimeout( function() { localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { 
-       	if(value != null) {
-			    state = value;
-			    emulator.restore_state(state);
-			    emulator.serial0_send("$HOME/.profile\n");//input after restore
-			    document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
-			    document.getElementById("storage_error").style.display = "none";
-			    if(localStorage.getItem("noupdates") != 'true') {
-			        checkForUpdates();
-			    } else {
-			        console.log("user opted out of rootfs updates - not checking");
-			    }
-        }
-
-    }).catch(function(err) {
-
-
-           	console.log("error with web storage: "+err);
-           	window.persist = false;//no autosave
-           	document.getElementById("save").disabled = true;
-           	document.getElementById("autosave_toggle").disabled = true;
-           	document.getElementById("clear_save").disabled = true;
-           	document.getElementById("storage_error").style.display = "block";
-        
-    });}, 1000);  //wait 1 second  
-});
-
+}
 
 //wait for boot
 emulator.add_listener("serial0-output-char", function(char) {
