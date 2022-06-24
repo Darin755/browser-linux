@@ -90,7 +90,7 @@ var emulator = window.emulator = new V86Starter({
 
 //check for save
    window.autosave_lock = false; //prevent race conditions
-   localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { //wait for browser to catch up
+   localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { 
    	if(value != null) {
 			state = value;
 			emulator.restore_state(state);
@@ -105,13 +105,34 @@ var emulator = window.emulator = new V86Starter({
     }
 
 }).catch(function(err) {
-   	console.log("error with web storage: "+err);
-//   	alert("web storage had the following error: "+err+". Reloading may fix the issue."); //disabled alert
-   	window.persist = false;//no autosave
-   	document.getElementById("save").disabled = true;
-   	document.getElementById("autosave_toggle").disabled = true;
-   	document.getElementById("clear_save").disabled = true;
-   	document.getElementById("storage_error").style.display = "block";
+    //try again after a while
+    //same code as above
+    console.log("Failed to read from storage. Trying again in 1 second");
+       setTimeout( function() { localforage.getItem("snapshot-"+window.params.get("iso")).then(function(value) { 
+       	if(value != null) {
+			    state = value;
+			    emulator.restore_state(state);
+			    emulator.serial0_send("$HOME/.profile\n");//input after restore
+			    document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
+			    document.getElementById("storage_error").style.display = "none";
+			    if(localStorage.getItem("noupdates") != 'true') {
+			        checkForUpdates();
+			    } else {
+			        console.log("user opted out of rootfs updates - not checking");
+			    }
+        }
+
+    }).catch(function(err) {
+
+
+           	console.log("error with web storage: "+err);
+           	window.persist = false;//no autosave
+           	document.getElementById("save").disabled = true;
+           	document.getElementById("autosave_toggle").disabled = true;
+           	document.getElementById("clear_save").disabled = true;
+           	document.getElementById("storage_error").style.display = "block";
+        
+    });}, 1000);  //wait 1 second  
 });
 
 
