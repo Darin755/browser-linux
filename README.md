@@ -58,5 +58,5 @@
 
 ## License
 
- - Browser linux itself is under GPLv2 License
+ - Browser linux itself is under GPLv3 License
  - see LICENSE
