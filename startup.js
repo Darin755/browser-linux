@@ -146,7 +146,7 @@ emulator.add_listener("serial0-output-char", function(char) {
             	    emulator.serial0_send(window.cmd + "\n");
             	}
             	if(window.persist == true) {
-            	    setInterval(function() {
+            	   window.autosave_loop = setInterval(function() {
    	    	            startAutosave(true); //run autosave every 30 seconds
    	    	            console.log("autosaved");
    	    	        },30000);
@@ -175,7 +175,25 @@ function restore() {
 
 function getTimestamp() {
     var d = new Date();
-    return d.getHours()+":"+d.getMinutes()+" "+(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+    var hours; 
+    var ampm;
+    var min;
+    
+    if(d.getHours() > 12) {
+        hours = d.getHours() - 12;
+        ampm = "pm";
+    } else {
+        hours = d.getHours();
+        ampm = "am"
+    }
+    
+    if(d.getMinutes() < 10) {
+        min = "0" + d.getMinutes();
+    } else {
+        min = d.getMinutes();
+    }
+    
+    return hours+":"+min+" "+ampm;
 }
 
 

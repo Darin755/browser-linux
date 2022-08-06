@@ -104,13 +104,15 @@ function saveRestore() {
 }
 
 function toggle_autosave() {
-	var b = document.getElementById("autosave_toggle");
+	var b = document.getElementById("autosave_toggle"); //disable
 	if(window.persist) {
 		b.innerHTML = "enable autosave";
 		localStorage.setItem("autosave", false);
+		document.getElementById("save_time").innerHTML = "autosave disabled";
 		window.persist = false;
+		clearInterval(window.autosave_loop); 
 		return false;
-	} else {
+	} else {                                //enable
 		b.innerHTML = "disable autosave";
 		localStorage.setItem("autosave", true);
 		window.persist = true;
