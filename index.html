@@ -6,6 +6,12 @@ body {
 background-color: black;
 color: white;
 }
+.statusbar {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 14px;
+}
 
 .toolbox {
   border: 1px outset white;
@@ -19,6 +25,7 @@ color: white;
 <script src="lib/localForage/localForage.js"></script>
 </head>
 <body>
+<p class="statusbar" id="save_time"></p>
 <script src="startup.js" defer></script>
 <script src="buttons.js" defer></script>
 <h4 class="fluff">Welcome to Browser Linux</h4>

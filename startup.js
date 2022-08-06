@@ -40,7 +40,8 @@ if(window.params.has("embed") && window.params.get("embed") == "true") {
     }
     document.body.append(document.getElementById("save"));
     document.body.append(document.getElementById("clear_save"));
-    window.persist = true;
+    document.body.append(document.getElementById("autosave_toggle"));
+    window.persist = false;
 }
 //autosave restore
 if(localStorage.getItem("autosave") == 'true') {
@@ -144,10 +145,14 @@ emulator.add_listener("serial0-output-char", function(char) {
             	if(window.cmd != undefined) {//cmd
             	    emulator.serial0_send(window.cmd + "\n");
             	}
-   	            if(window.persist == true) {
-   	    	        startAutosave(true); //start autosave
+            	if(window.persist == true) {
+            	    setInterval(function() {
+   	    	            startAutosave(true); //run autosave every 30 seconds
+   	    	            console.log("autosaved");
+   	    	        },30000);
    	            }
             }
+
         }
 });
     
@@ -178,6 +183,7 @@ function getTimestamp() {
 function startAutosave(auto) {
 	if(!window.autosave_lock) {
 		window.autosave_lock = true;
+		document.getElementById("save_time").innerHTML = "saving . . .";
 		localStorage.setItem("version", window.version);
 		emulator.save_state(function(error, new_state){
 			if(error){
@@ -185,13 +191,14 @@ function startAutosave(auto) {
 			}
 		localforage.setItem("snapshot-"+window.params.get("iso"), new_state).then(function () {
 			window.autosave_lock = false;
-			console.log("saved");
+			
 		});
 		
 		if(auto) {
 			document.getElementById("save_time").innerHTML = "autosaved at "+getTimestamp();
-		} else {
+		} else { //just a normal save
 			document.getElementById("save_time").innerHTML = "saved at "+getTimestamp();
+		    console.log("saved");
 		}
 		});
 	}
