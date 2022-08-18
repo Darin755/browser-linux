@@ -9,6 +9,16 @@ window.version = 1.22; //buildroot 2022.5
 //parse url
 var url = window.location.search.substring(1);
 window.params = new URLSearchParams(url);
+//mem (MB)
+if(window.params.has("mem")) {
+    if(typeof(window.params.get("mem") == 'number')) {
+        window.mem = window.params.get("mem");
+    } else {
+        alert("mem invalid. reverting to 256mb");
+    }
+} else {
+    window.mem = 256; //mb
+}
 //iso
 if(!(window.params.has("iso"))) {
 	window.params.set("iso","rootfs.iso");
@@ -53,7 +63,7 @@ console.log("using "+window.params.get("iso")+" as iso");
 //start v86
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
-    memory_size: 256 * 1024 * 1024,
+    memory_size: window.mem * 1024 * 1024,
     vga_memory_size: 16 * 1024 * 1024,
     network_relay_url: "wss://relay.widgetry.org/",
     screen_container: document.getElementById("screen_container"),
@@ -106,7 +116,7 @@ function loadSaves() {
 			        } else {
 			            console.log("user opted out of rootfs updates - not checking");
 			        }
-            }
+            } 
         }).catch(function(err) {//error
                    	console.log("error with web storage: "+err);
                    	window.persist = false;//no autosave
@@ -266,3 +276,4 @@ window.addEventListener("message", (event) => {
     }
 
 });
+

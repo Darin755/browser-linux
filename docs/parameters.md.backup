@@ -15,4 +15,4 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
 - async=\<*true*> [default false]
   - This loads the image as needed instead of all at once. It can make it faster in some cases but usually causes more problems than is solves.
 - mem=\<number of mb> [default 256]
-  - This changes the amount of ram. Currently there is no error handling for snapshots that have different amounts of ram. 
+  - This changes the amount of ram. Currently there is no error handling for sn
