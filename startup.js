@@ -38,9 +38,16 @@ if(window.params.has("cmd")) {
     window.cmd = window.params.get("cmd");
 }
 //autosave
-if(window.params.has("autosave") && window.params.get("autosave") == "true") {
+if(window.params.has("autosave")) {
 	console.log("enabling web storage persist");
 	window.persist = true;
+    if(typeof(window.params.get("autosave") == 'number') && window.params.get("autosave") > 0) {
+        window.autosaveTime = window.params.get("autosave");
+        console.log("using "+ window.autosaveTime + "seconds as autosave interval");
+	} else {
+	    console.log("no options were provided using default 30 seconds");
+	    window.autosaveTime = 30; //30 seconds
+	}
 }
 //embed 
 if(window.params.has("embed") && window.params.get("embed") == "true") {
@@ -159,7 +166,7 @@ emulator.add_listener("serial0-output-char", function(char) {
             	   window.autosave_loop = setInterval(function() {
    	    	            startAutosave(true); //run autosave every 30 seconds
    	    	            console.log("autosaved");
-   	    	        },30000);
+   	    	        }, window.autosaveTime*1000);
    	            }
             }
 
@@ -276,4 +283,5 @@ window.addEventListener("message", (event) => {
     }
 
 });
+
 
