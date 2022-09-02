@@ -45,6 +45,7 @@
  - updates: [updates.md](docs/updates.md)
  - How to embed: [embed.md](docs/embed.md)
  - Static-get: [Static-get.md](docs/static-get.md)
+ - Shared fs [9pfs.md](docs/9pfs.md)
 
 ## Limitations
  - It is a bit slow
@@ -55,7 +56,8 @@
    - static-get get is good for small programs but is not a functional package manager. It also suffers limitations due to internet. See [internet.md](docs/internet.md)
 
 ## Contributing
- - Feel free to open a issue, pull request or discussion
+ - The To Do list is located [here](todo.md) but feel free to suggest what you think would be beneficial
+ - Don't hesitate to open a issue, pull request or discussion
  - If you would like to see packages added, please open a [discussion](https://github.com/Darin755/browser-linux/discussions)
 
 ## License

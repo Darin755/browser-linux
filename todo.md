@@ -1,0 +1,18 @@
+- ## Bugs
+  - When an save is restored with an application running such as vim the user is greeted with a black screen. The program is still running but doesn't refresh the terminal. Solutions:
+    - Send key combo to close the application
+    - force the application to refresh the screen somehow (likely fix)
+- ## Features to add 
+  - Appimage support
+    - Dedicated library that has 32bit only?
+  - More customization
+    - custom usernames
+    - custom shell themes
+    - Custom iso upload and save
+  - Custom UI for building images
+    - This would be really hard to implement
+    - There could be a simple script that generates a iso that you can upload.
+  - functional updates to saved states
+    - I need a way to update the iso itself without losing data
+    - This might be able to be solved by having a virtual hdd
+

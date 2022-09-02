@@ -3,4 +3,4 @@
 - The minimal.iso does not mount on boot. You can easily mount it with ```sudo mount -t 9p host9p /mnt```
 ### Uploading Files
 - You can upload files with the *upload files* button. See [toolbox.md](docs/toolbox.md)
-- The files are hard coded to save to ```/user```. If there is a file with the same name it will be overwritten.
+- The file upload is hard coded to save uploaded files to ```/user```. If there is a file with the same name it will be **overwritten** without any warning.
