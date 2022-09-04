@@ -125,10 +125,9 @@ function loadSaves() {
            	if(value != null) {
 			        state = value;
 			        emulator.restore_state(state);
-			        if(window.boot == true) { //detect if there is a shell open
-			            emulator.serial0_send("$HOME/.profile\n");//input after restore
-			        } else {
-			            emulator.serial0_send("\x0c"); //ctrl-l to refresh terminal
+			        
+			        if(window.boot != true) { //if there is a open app, refresh it
+			            emulator.serial0_send("\033"+"\x0c"); //esc followed by ctrl-l to refresh terminal
 			            document.getElementById("screen_container").style.display = "none";//hide the screen
                         document.getElementById("screenButton").innerHTML = "show screen"; 
 			        }
@@ -168,6 +167,7 @@ emulator.add_listener("serial0-output-char", function(char) {
             //time to boot
             if(window.boot == false) {
                 console.log("Boot successful");//boot successful
+                emulator.serial0_send("$HOME/.profile\n");//input after restore
                 document.getElementById("terminal").style.display = "block";//show the terminal
                 if(!window.screen) {//continue showing the screen if false
                     document.getElementById("screen_container").style.display = "none";//hide the screen and waiting text
