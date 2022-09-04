@@ -20,9 +20,18 @@ if(window.params.has("mem")) {
     window.mem = 256; //mb
 }
 //iso
-if(!(window.params.has("iso"))) {
-	window.params.set("iso","rootfs.iso");
+if(window.params.has("iso") && !(window.params.has("referrerPath"))) {
+    window.iso = window.params.get("iso")+"?version="+window.version;
+} else if(window.params.has("referrerPath")){
+    if(document.referrer.charAt(document.referrer.length-1) != "/"){
+        window.iso = document.referrer+"/"+window.params.get("iso");
+    } else {
+        window.iso = document.referrer+window.params.get("iso");
+    }
+} else {
+    window.iso = "rootfs.iso";
 }
+
 //screen
 window.screen = false; //default value
 if(window.params.has("screen")) {
@@ -51,6 +60,7 @@ if(window.params.has("autosave")) {
 }
 //embed 
 if(window.params.has("embed") && window.params.get("embed") == "true") {
+    console.log("running in embeded mode");
     var fluffs = document.getElementsByClassName("fluff");
     for(var i = 0;i<fluffs.length;i++) {
         fluffs[i].style.display = "none";
@@ -66,7 +76,7 @@ if(localStorage.getItem("autosave") == 'true') {
 		window.persist = true;
 }
 window.boot = false; //not booted
-console.log("using "+window.params.get("iso")+" as iso");
+console.log("using "+window.iso+" as iso");
 //start v86
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
@@ -86,7 +96,7 @@ var emulator = window.emulator = new V86Starter({
         baseurl: "flat/",
     },
     cdrom: {
-        url: window.params.get("iso")+"?version="+window.version, //async
+        url: window.iso, //async
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,
     },
 
