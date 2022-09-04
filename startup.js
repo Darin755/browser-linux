@@ -22,7 +22,7 @@ if(window.params.has("mem")) {
 //iso
 if(window.params.has("iso") && !(window.params.has("referrerPath"))) {
     window.iso = window.params.get("iso")+"?version="+window.version;
-} else if(window.params.has("referrerPath")){
+} else if(window.params.has("referrerPath")){ //experimental, could be removed
     if(document.referrer.charAt(document.referrer.length-1) != "/"){
         window.iso = document.referrer+"/"+window.params.get("iso");
     } else {
@@ -125,7 +125,14 @@ function loadSaves() {
            	if(value != null) {
 			        state = value;
 			        emulator.restore_state(state);
-			        emulator.serial0_send("$HOME/.profile\n");//input after restore
+			        if(window.boot == true) { //detect if there is a shell open
+			            emulator.serial0_send("$HOME/.profile\n");//input after restore
+			        } else {
+			            emulator.serial0_send("\x0c"); //ctrl-l to refresh terminal
+			            document.getElementById("screen_container").style.display = "none";//hide the screen
+                        document.getElementById("screenButton").innerHTML = "show screen"; 
+			        }
+		
 			        document.getElementById("save_time").innerHTML = "restored from save at "+getTimestamp();
 			        document.getElementById("storage_error").style.display = "none";
 			        if(localStorage.getItem("noupdates") != 'true') {
@@ -163,7 +170,8 @@ emulator.add_listener("serial0-output-char", function(char) {
                 console.log("Boot successful");//boot successful
                 document.getElementById("terminal").style.display = "block";//show the terminal
                 if(!window.screen) {//continue showing the screen if false
-                    document.getElementById("screen_container").style.display = "none";//hide the screen
+                    document.getElementById("screen_container").style.display = "none";//hide the screen and waiting text
+                    document.getElementById("waiting_text").style.display = "none";
                     document.getElementById("screenButton").innerHTML = "show screen";
                 }
                 waiting_text.style.display = "none";

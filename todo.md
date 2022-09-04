@@ -1,8 +1,8 @@
 - ## Bugs
-  - When an save is restored with an application running such as vim the user is greeted with a black screen. The program is still running but doesn't refresh the terminal. Solutions:
-    - Send key combo to close the application
-    - force the application to refresh the screen somehow (likely fix)
+  - There is currently no known bugs. Please report if one is found.
 - ## Features to add 
+  - Custom iso for embedded 
+    - It would be nice to be able to pass a custom iso from the host to the iframe. It currently is being worked on in startup.js (see iso section)
   - Appimage support
     - Dedicated library that has 32bit only?
   - More customization
