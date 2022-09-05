@@ -19,17 +19,10 @@ if(window.params.has("mem")) {
 } else {
     window.mem = 256; //mb
 }
+
 //iso
-if(window.params.has("iso") && !(window.params.has("referrerPath"))) {
-    window.iso = window.params.get("iso")+"?version="+window.version;
-} else if(window.params.has("referrerPath")){ //experimental, could be removed
-    if(document.referrer.charAt(document.referrer.length-1) != "/"){
-        window.iso = document.referrer+"/"+window.params.get("iso");
-    } else {
-        window.iso = document.referrer+window.params.get("iso");
-    }
-} else {
-    window.iso = "rootfs.iso";
+if(window.params.has("iso") != true) {
+    window.params.set("iso","rootfs.iso");
 }
 
 //screen
@@ -41,11 +34,17 @@ if(window.params.has("screen")) {
         document.getElementById("screen_container").style.display = "none";
         document.getElementById("screenButton").innerHTML = "show screen";
     }
-} 
-//cmd
-if(window.params.has("cmd")) {
-    window.cmd = window.params.get("cmd");
 }
+
+//cmd
+if(window.params.has("cmd") && window.params.get("cmd") != "") {
+    if(window.cmd == undefined) {
+        window.cmd = window.params.get("cmd");
+    } else {
+        window.cmd = window.cmd + "&&" + window.params.get("cmd");
+    }
+}
+
 //autosave
 if(window.params.has("autosave")) {
 	console.log("enabling web storage persist");
@@ -96,7 +95,7 @@ var emulator = window.emulator = new V86Starter({
         baseurl: "flat/",
     },
     cdrom: {
-        url: window.iso, //async
+        url: window.params.get("iso")+"?version="+window.version, //async
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,
     },
 
@@ -177,6 +176,7 @@ emulator.add_listener("serial0-output-char", function(char) {
                 waiting_text.style.display = "none";
             	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
             	window.boot = true;
+
             	if(window.cmd != undefined) {//cmd
             	    emulator.serial0_send(window.cmd + "\n");
             	}
