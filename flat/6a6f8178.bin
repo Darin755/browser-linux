@@ -18,3 +18,4 @@ sudo
 ash (default shell)
 bash
 file 
+tmux

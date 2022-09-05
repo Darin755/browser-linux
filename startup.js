@@ -5,7 +5,7 @@ if(!window.WebAssembly) {//if no web assembly
 //start message
 console.log("Welcome to Browser Linux");
 //version
-window.version = 1.23; //buildroot 2022.5
+window.version = 1.25; //buildroot 2022.5
 //parse url
 var url = window.location.search.substring(1);
 window.params = new URLSearchParams(url);
