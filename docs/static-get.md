@@ -1,5 +1,11 @@
 ## [Static-get](http://s.minos.io/)  -- Easily download Linux binaries
-#### Not recommended for larger packages because it requires internet. See [internet](internet.md)
+
+ - ### Static-get will not work unless there is a internet connection. See [internet.md](docs/internet.md) for how to set it up
+
+ - ### static-get is not recommended for larger packages because it uses the internet proxy which is rate limited
+ 
+ - ### static-get should **not** be run as root (no sudo)
+
 
 ## The syntax
 
