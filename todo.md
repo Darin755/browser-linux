@@ -9,9 +9,6 @@
     - custom usernames
     - custom shell themes
     - Custom iso upload and save
-  - Custom UI for building images
-    - This would be really hard to implement
-    - There could be a simple script that generates a iso that you can upload.
   - functional updates to saved states
     - I need a way to update the iso itself without losing data
     - This might be able to be solved by having a virtual hdd
