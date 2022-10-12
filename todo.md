@@ -1,5 +1,5 @@
 - ## Bugs
-  - There is currently no known bugs. Please report if one is found.
+  - the update to buildroot 2022.8 seems to have messed up the screen. It is not critical but should be fixed at some point
 - ## Features to add 
   - Custom iso for embedded 
     - It would be nice to be able to pass a custom iso from the host to the iframe. It currently is being worked on in startup.js (see iso section)
