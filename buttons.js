@@ -63,19 +63,15 @@ function toggleScreen() {
 }
 
 
-function saveToFile() {
-	emulator.save_state(function(error, new_state) {
-   	if(error) {
-      	throw error;
-      }
-
+async function saveToFile() {
+	  var temp_state = await emulator.save_state();
       var a = document.createElement("a");
       a.download = "browser-linux.bin";
-      a.href = window.URL.createObjectURL(new Blob([new_state]));
+      a.href = window.URL.createObjectURL(new Blob([temp_state]));
       a.dataset.downloadurl = "application/octet-stream:" + a.download + ":" + a.href;
       a.click();
       document.getElementById("save_time").innerHTML = "state saved at "+getTimestamp();
-	});
+
 }
 
 

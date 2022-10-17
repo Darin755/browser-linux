@@ -75,7 +75,7 @@ if(localStorage.getItem("autosave") == 'true') {
 		window.persist = true;
 }
 window.boot = false; //not booted
-console.log("using "+window.iso+" as iso");
+console.log("using "+window.params.get("iso")+" as iso");
 //start v86
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
@@ -233,16 +233,13 @@ function getTimestamp() {
 
 
 //autosave
-function startAutosave(auto) {
+async function startAutosave(auto) {
 	if(!window.autosave_lock) {
 		window.autosave_lock = true;
 		document.getElementById("save_time").innerHTML = "saving . . .";
 		localStorage.setItem("version", window.version);
-		emulator.save_state(function(error, new_state){
-			if(error){
-				console.log(error);
-			}
-		localforage.setItem("snapshot-"+window.params.get("iso"), new_state).then(function () {
+		var temp_state = await emulator.save_state();
+		localforage.setItem("snapshot-"+window.params.get("iso"), temp_state).then(function () {
 			window.autosave_lock = false;
 			
 		});
@@ -253,7 +250,6 @@ function startAutosave(auto) {
 			document.getElementById("save_time").innerHTML = "saved at "+getTimestamp();
 		    console.log("saved");
 		}
-		});
 	}
 }
 
