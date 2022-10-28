@@ -2,6 +2,7 @@
   - There is currently no known bugs. Please report them
 - ## Features to add 
   - Custom iso for embedded 
+    - It would be nice to be able to pass a custom iso from the host to the iframe. It currently is being worked on in startup.js (see iso section)
   - More customization
     - custom usernames
     - custom shell themes

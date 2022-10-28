@@ -31,7 +31,8 @@ document.getElementById("upload_files").onchange = function(e) {
 		reader.onload = function(file) {
 		    return function(e) {
 		        var data = (new TextEncoder('UTF-8')).encode(e.target.result);
-		        emulator.create_file("/user/"+file.name, data);
+		        emulator.create_file(file.name, data);
+		        alert("Your file(s) were uploaded to the emulator. The file(s) will be under the path that the 9p is mounted to (/home for standard)");
 		        console.log("uploaded "+file.name);
 		    }
 	}(files[i]);
