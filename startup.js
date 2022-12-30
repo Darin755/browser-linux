@@ -20,17 +20,17 @@ if(window.params.has("mem")) {
     window.mem = 256; //mb
 }
 
-//inital state
-if(window.params.has("inital")) {
-    window.inital_state = window.params.get("inital");
-    console.log("Using " + window.inital_state + " as inital");
+//initial state
+if(window.params.has("initial")) {
+    window.initial_state = window.params.get("initial");
+    console.log("Using " + window.initial_state + " as initial");
 } else {
     if(checkExistence("state.bin.zst")) {
-        console.log("Using state.bin.zst as inital");
-        window.inital_state = "state.bin.zst"
+        console.log("Using state.bin.zst as initial");
+        window.initial_state = "state.bin.zst"
     } else {
-        console.log("No inital State found");
-        window.inital_state = "";
+        console.log("No initial State found");
+        window.initial_state = "";
     }
 }
 
@@ -44,7 +44,7 @@ if(window.params.has("iso") != true) {
         window.iso = "";
     }
 } else {
-    if((checkExistence(window.params.get("iso")))) { //if it doesn't exist
+    if(window.initial_state == "" && checkExistence(window.params.get("iso"))) { //if it doesn't exist
         window.iso = window.params.get("iso")+"?version="+window.version;
         window.initial_state = "";
     } else {
@@ -105,8 +105,8 @@ if(localStorage.getItem("autosave") == 'true') {
 }
 window.boot = false; //not booted
 
-//warn if not inital state or iso
-if(window.iso == "" && window.inital_state == "") {
+//warn if not initial state or iso
+if(window.iso == "" && window.initial_state == "") {
     alert("No bootable devices found");
 }
 
@@ -132,7 +132,7 @@ var emulator = window.emulator = new V86Starter({
         url: window.iso, 
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,//async
     },
-    initial_state: { url: window.inital_state },
+    initial_state: { url: window.initial_state },
 
     autostart: true,
     preserve_mac_from_state_image: true,
@@ -183,7 +183,7 @@ function loadSaves() {
  
         });
         //send enter for the loading initial state
-        if(window.inital_state != "") {    
+        if(window.initial_state != "") {    
             emulator.serial0_send('\n');
         }
         
