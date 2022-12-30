@@ -16,3 +16,6 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
   - This loads the image as needed instead of all at once. It can make it faster in some cases but usually causes more problems than is solves.
 - mem=\<number of mb> [default 256]
   - This changes the amount of ram. Currently there is no error handling for snapshots that have different amounts of ram. If a previous save is restored on load the ram will be the same as it was in the snapshot.
+- initial=\<name of image>
+  - This is the name of a the v86 save state. It can be raw or compressed with zstd
+  - The save state needs to have the save amount of ram configured. (default 256)
