@@ -1,14 +1,9 @@
 - ## Bugs
   - There is currently no known bugs. Please report them
 - ## Features to add 
-  - Custom iso for embedded 
-  - More customization
-    - custom usernames
-    - custom shell themes
-    - Custom iso upload and save
+  -
   - functional updates to saved states
     - I need a way to update the iso itself without losing data
     - This might be able to be solved by having a virtual hdd
-  - better software selection
-    - It would be nice to have a better way of getting software in browser linux
+  - Way of customizing the software installed (a package manager)
 

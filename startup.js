@@ -339,7 +339,7 @@ window.addEventListener("message", (event) => {
 //check if file exists on server
 function checkExistence(filename) {
     var http = new XMLHttpRequest();
-    http.open('HEAD', window.location.href +filename, false);
+    http.open('HEAD', window.location.href.split('?')[0] +filename, false);
     http.send();
     if(http.status == 200) {
         return true;
