@@ -22,7 +22,35 @@ if(window.params.has("mem")) {
 
 //iso
 if(window.params.has("iso") != true) {
-    window.params.set("iso","rootfs.iso");
+    if(checkExistence("rootfs.iso")) {
+        window.iso = "rootfs.iso"+"?version="+window.version;
+        console.log("using "+window.iso+" as iso");
+    } else {
+        console.log("rootfs.iso not found");
+        window.iso = "";
+    }
+} else {
+    if((checkExistence(window.params.get("iso")))) { //if it doesn't exist
+        window.iso = window.params.get("iso")+"?version="+window.version;
+    } else {
+        console.log("invalid iso");
+        alert("user supplied iso not found");
+        window.iso = "";
+    }
+}
+
+//inital state
+if(window.params.has("inital")) {
+    window.inital_state = window.params.get("inital");
+    console.log("Using " + window.inital_state + " as inital");
+} else {
+    if(checkExistence("state.bin.zst")) {
+        console.log("Using state.bin.zst as inital");
+        window.inital_state = "state.bin.zst"
+    } else {
+        console.log("No inital State found");
+        window.inital_state = "";
+    }
 }
 
 //screen
@@ -75,7 +103,12 @@ if(localStorage.getItem("autosave") == 'true') {
 		window.persist = true;
 }
 window.boot = false; //not booted
-console.log("using "+window.params.get("iso")+" as iso");
+
+//warn if not inital state or iso
+if(window.iso == "" && window.inital_state == "") {
+    alert("No bootable devices found");
+}
+
 //start v86
 var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
@@ -95,9 +128,10 @@ var emulator = window.emulator = new V86Starter({
         baseurl: "flat/",
     },
     cdrom: {
-        url: window.params.get("iso")+"?version="+window.version, //async
-	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,
+        url: window.iso, 
+	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,//async
     },
+    initial_state: { url: window.inital_state },
 
     autostart: true,
     preserve_mac_from_state_image: true,
@@ -114,7 +148,6 @@ var emulator = window.emulator = new V86Starter({
    waiting_text.style.display = "block";
    document.getElementById("toolbox_div").style.display = "none";//hide toolbox
    var data = "";
-
 //check for save
 loadSaves();//run the function below
 function loadSaves() {
@@ -148,6 +181,9 @@ function loadSaves() {
                    	document.getElementById("storage_error").style.display = "block";
  
         });
+        //send enter for the loading initial state
+            emulator.serial0_send('\n');
+        
     } else {//v86 isn't ready
         setTimeout(loadSaves,1000);//check every second until ready
     }
@@ -298,4 +334,14 @@ window.addEventListener("message", (event) => {
 
 });
 
-
+//check if file exists on server
+function checkExistence(filename) {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', window.location.origin+"/"+filename, false);
+    http.send();
+    if(http.status == 200) {
+        return true;
+    } else {
+        return false;
+    }
+}
