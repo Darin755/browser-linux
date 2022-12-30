@@ -182,7 +182,9 @@ function loadSaves() {
  
         });
         //send enter for the loading initial state
+        if(window.inital_state != "") {    
             emulator.serial0_send('\n');
+        }
         
     } else {//v86 isn't ready
         setTimeout(loadSaves,1000);//check every second until ready
@@ -337,7 +339,7 @@ window.addEventListener("message", (event) => {
 //check if file exists on server
 function checkExistence(filename) {
     var http = new XMLHttpRequest();
-    http.open('HEAD', window.location.origin+"/"+filename, false);
+    http.open('HEAD', window.location.href +filename, false);
     http.send();
     if(http.status == 200) {
         return true;
