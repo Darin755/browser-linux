@@ -20,6 +20,20 @@ if(window.params.has("mem")) {
     window.mem = 256; //mb
 }
 
+//inital state
+if(window.params.has("inital")) {
+    window.inital_state = window.params.get("inital");
+    console.log("Using " + window.inital_state + " as inital");
+} else {
+    if(checkExistence("state.bin.zst")) {
+        console.log("Using state.bin.zst as inital");
+        window.inital_state = "state.bin.zst"
+    } else {
+        console.log("No inital State found");
+        window.inital_state = "";
+    }
+}
+
 //iso
 if(window.params.has("iso") != true) {
     if(checkExistence("rootfs.iso")) {
@@ -32,24 +46,11 @@ if(window.params.has("iso") != true) {
 } else {
     if((checkExistence(window.params.get("iso")))) { //if it doesn't exist
         window.iso = window.params.get("iso")+"?version="+window.version;
+        window.initial_state = "";
     } else {
         console.log("invalid iso");
         alert("user supplied iso not found");
         window.iso = "";
-    }
-}
-
-//inital state
-if(window.params.has("inital")) {
-    window.inital_state = window.params.get("inital");
-    console.log("Using " + window.inital_state + " as inital");
-} else {
-    if(checkExistence("state.bin.zst")) {
-        console.log("Using state.bin.zst as inital");
-        window.inital_state = "state.bin.zst"
-    } else {
-        console.log("No inital State found");
-        window.inital_state = "";
     }
 }
 
