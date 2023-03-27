@@ -6,8 +6,6 @@
 
 <img src="docs/images/screenshot.png">
 
-*star it if you like it*
-
 ### About
 
  - Browser linux is a project to get a linux command line in the browser
