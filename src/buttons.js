@@ -31,11 +31,12 @@ document.getElementById("upload_files").onchange = function(e) {
 		reader.onload = function(file) {
 		    return function(e) {
 		        //e.target.result
+		        var path = document.getElementById("upload_path").value + "/" + file.name;
 		        var data = new Uint8Array(e.target.result);
-		        emulator.create_file(file.name, data);
-		        //alert("Your file(s) were uploaded to the emulator. The file(s) will be under the path that the 9p is mounted to (/home for standard)");
+		        emulator.create_file(path, data);
+		        alert("Your file(s) were uploaded to the emulator. Path: "+path);
 		        document.getElementById("save_time").innerHTML = "Uploaded file(s)"
-		        console.log("uploaded "+file.name);
+		        console.log("uploaded "+path);
 		    }
 	}(files[i]);
 	reader.readAsArrayBuffer(files[i]);

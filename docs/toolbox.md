@@ -16,6 +16,7 @@
    - Downloads the state to a file. Can be useful for taking backups and moving data between devices
  - *Send Files to Emulator*
    - Used for uploading files to the emulator. See [9pfs.md](9pfs.md)
+   - keep in mind that the upload path is inside the folder mount. 
  - *Restore from file*
    - used to restore state from file created by save to file
  - *Delete Saved data*
