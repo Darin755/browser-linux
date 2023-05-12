@@ -137,3 +137,10 @@ function fullscreen() {
 	document.getElementById("screen_container").requestFullscreen();
 }
 
+//reload after setting web proxy
+function setProxyFromSettings() {
+    localStorage.setItem("proxy", document.getElementById("proxy_setting").value);
+    startAutosave();
+    window.location.reload();
+}
+

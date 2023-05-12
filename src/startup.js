@@ -54,6 +54,21 @@ if(window.params.has("iso") != true) {
     }
 }
 
+//web proxy
+if(window.params.has("proxy") || localStorage.getItem("proxy") != null) {
+    //check for persistence
+    var proxyUrlFromStorage = localStorage.getItem("proxy");
+    if(localStorage.getItem("proxy") == null) {
+        window.proxy = window.params.get("proxy");
+    } else {
+        window.proxy = proxyUrlFromStorage;
+    }
+    
+    document.getElementById("proxy_setting").value = window.proxy;
+} else {
+    window.proxy = "wss://relay.widgetry.org/";
+}
+
 //screen
 window.screen = false; //default value
 if(window.params.has("screen")) {
@@ -115,7 +130,7 @@ var emulator = window.emulator = new V86Starter({
 	wasm_path: "lib/v86/v86.wasm",
     memory_size: window.mem * 1024 * 1024,
     vga_memory_size: 16 * 1024 * 1024,
-    network_relay_url: "wss://relay.widgetry.org/",
+    network_relay_url: window.proxy,
     screen_container: document.getElementById("screen_container"),
 	serial_container_xtermjs: document.getElementById("terminal"),
     bios: {

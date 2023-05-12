@@ -55,6 +55,8 @@ Send files to emulator
 Restore from file: <input id="restore_file" type="file">
 </label>
 <hr>
+<p>web proxy</p><input type="test" value="wss://relay.widgetry.org/" id="proxy_setting"><button onclick="setProxyFromSettings()">save and reload</button>
+<hr>
 <button id="clear_save" onclick="delete_data()">delete saved data</button>
 <button id="autosave_toggle" onclick="toggle_autosave()">enable autosave</button>
 <button id="save" onclick="startAutosave()">save now</button>
