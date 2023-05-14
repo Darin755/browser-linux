@@ -24,7 +24,7 @@
 
 ## How to save
 
- - it can take anywhere from 30-60 sec to boot depending on hardware
+ - it can take anywhere from 15-70 sec to boot depending on hardware
 
  - open the toolbox (the icon at the bottom) and press save now and/or enable autosave
  - See [saving.md](docs/saving.md)
@@ -33,7 +33,7 @@
 
  - It is actually pretty simple to do.
  - See [Embed.md](docs/embed.md)
- - See the [example](https://darin755.github.io/browser-linux/embed.html)
+ - See the [example](https://darin755.github.io/browser-linux/	embed.html)
  
 ## Documentation
  - How to save: [saving.md](docs.saving.md)
