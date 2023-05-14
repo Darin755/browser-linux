@@ -19,3 +19,5 @@ You can pass parameters to Browser linux by adding ? at the end. You can separat
 - initial=\<name of image>
   - This is the name of a the v86 save state. It can be raw or compressed with zstd
   - The save state needs to have the save amount of ram configured. (default 256)
+- proxy=\<proxy url>
+  - This is the url to a custom proxy. The default is the proxy hosted by copy.

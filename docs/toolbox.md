@@ -19,8 +19,11 @@
    - keep in mind that the upload path is inside the folder mount. 
  - *Restore from file*
    - used to restore state from file created by save to file
- - *Delete Saved data*
-   - deletes saved data. **Be very mindful of this button. It will cause data loss.** You can backup using *save to file*.
+ - proxy url
+   - This is the url to a custom proxy. If you want to self host a proxy for faster speeds this is how you do it. You will need docker setup and working for the project below.
+     - https://github.com/benjamincburns/websockproxy (No rate limiting)
+  - *Delete Saved data*
+    - deletes saved data. **Be very mindful of this button. It will cause data loss.** You can backup using *save to file*.
  - *Enable Autosave* 
    - Enables autosave. See [saving.md](saving.md)
  - *save now*
