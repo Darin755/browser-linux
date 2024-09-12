@@ -193,7 +193,7 @@ function loadSaves() {
 			        emulator.restore_state(state);
 			        
 			        if(window.boot != true) { //if there is a open app, refresh it
-			            emulator.serial0_send("\033"+"\x0c"); //esc followed by ctrl-l to refresh terminal
+			            emulator.serial0_send("\x033"+"\x0c"); //esc followed by ctrl-l to refresh terminal
 			            document.getElementById("screen_container").style.display = "none";//hide the screen
                         document.getElementById("screenButton").innerHTML = "show screen"; 
 			        }
