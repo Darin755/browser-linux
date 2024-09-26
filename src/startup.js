@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
+"use strict";
+
 if(!window.WebAssembly) {//if no web assembly
     alert("Your browser is not supported because it doesn't support WebAssembly");
     document.write("unsupported - no Web Assembly");
@@ -143,8 +145,15 @@ if(window.iso == "" && window.initial_state == "") {
     alert("No bootable devices found");
 }
 
+//fix for initial state
+window.initial_state_obj_fix = undefined;
+
+if(window.initial_state != "") {
+    window.initial_state_obj_fix = { url: window.initial_state }
+}
+
 //start v86
-var emulator = window.emulator = new V86Starter({
+var emulator = window.emulator = new V86({
 	wasm_path: "lib/v86/v86.wasm",
     memory_size: window.mem * 1024 * 1024,
     vga_memory_size: 16 * 1024 * 1024,
@@ -165,7 +174,7 @@ var emulator = window.emulator = new V86Starter({
         url: window.iso, 
 	    async: (window.params.has("async") && (window.params.get("async") == "true")) ,//async
     },
-    initial_state: { url: window.initial_state },
+    initial_state: window.initial_state_obj_fix,
 
     autostart: true,
     preserve_mac_from_state_image: true,
@@ -226,41 +235,39 @@ function loadSaves() {
 }
 
 //wait for boot
-emulator.add_listener("serial0-output-char", function(char) {
-        if(char !== "\r")
-        {
-            data += char;
-        }
+emulator.add_listener("serial0-output-byte", function(byte) {
+    var char = String.fromCharCode(byte);
+    if(char !== "\r") {
+        data += char;
+    }
 
-        if(data.endsWith("$ ") || data.endsWith("# "))
-        {
-
-            //time to boot
-            if(window.boot == false) {
-                console.log("Boot successful");//boot successful
-                emulator.serial0_send("$HOME/.profile\n");//input after restore
-                document.getElementById("terminal").style.display = "block";//show the terminal
-                if(!window.screen) {//continue showing the screen if false
-                    document.getElementById("screen_container").style.display = "none";//hide the screen and waiting text
-                    document.getElementById("waiting_text").style.display = "none";
-                    document.getElementById("screenButton").innerHTML = "show screen";
-                }
-                waiting_text.style.display = "none";
-            	document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
-            	window.boot = true;
-
-            	if(window.cmd != undefined) {//cmd
-            	    emulator.serial0_send(window.cmd + "\n");
-            	}
-            	if(window.persist == true) {
-            	   window.autosave_loop = setInterval(function() {
-   	    	            startAutosave(true); //run autosave every 30 seconds
-   	    	            console.log("autosaved");
-   	    	        }, window.autosaveTime*1000);
-   	            }
+    if(data.endsWith("$ ") || data.endsWith("# ")) {
+        //time to boot
+        if(window.boot == false) {
+            console.log("Boot successful");//boot successful
+            emulator.serial0_send("$HOME/.profile\n");//input after restore
+            document.getElementById("terminal").style.display = "block";//show the terminal
+            if(!window.screen) {//continue showing the screen if false
+                document.getElementById("screen_container").style.display = "none";//hide the screen and waiting text
+                document.getElementById("waiting_text").style.display = "none";
+                document.getElementById("screenButton").innerHTML = "show screen";
             }
+            waiting_text.style.display = "none";
+            document.getElementById("boot_time").innerHTML = (Math.round(performance.now()/100)/10);
+        	window.boot = true;
 
+        	if(window.cmd != undefined) {//cmd
+        	    emulator.serial0_send(window.cmd + "\n");
+        	}
+        	if(window.persist == true) {
+            	window.autosave_loop = setInterval(function() {
+   	    	        startAutosave(true); //run autosave every 30 seconds
+   	    	        console.log("autosaved");
+   	    	    }, window.autosaveTime*1000);
+   	        }
         }
+
+    }
 });
     
 var state;
